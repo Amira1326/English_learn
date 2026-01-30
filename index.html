@@ -3,24 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Master Pro | Ultimate Learning Experience</title>
+    <meta name="description" content="Professional English Learning Platform with British Pronunciation - Gamified Learning Experience">
+    <meta name="keywords" content="English learning, IELTS preparation, British pronunciation, vocabulary, gamified learning">
+    <title>English Master Pro | Ultimate Learning Platform</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@700;800;900&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
     <style>
+        /* ==================================== */
+        /*         CSS VARIABLES & RESET       */
+        /* ==================================== */
+        
         :root {
+            /* Primary Colors */
             --primary: #6366f1;
+            --primary-dark: #4f46e5;
             --secondary: #8b5cf6;
             --accent: #ec4899;
             --dark: #0f172a;
             --light: #f8fafc;
+            --white: #ffffff;
+            
+            /* Status Colors */
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
             --info: #3b82f6;
             --gray: #64748b;
-            --shadow: 0 10px 40px rgba(0,0,0,0.2);
-            --gradient: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-            --glass: rgba(255, 255, 255, 0.1);
+            --gray-light: #e2e8f0;
+            --gray-dark: #334155;
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-md: 0 5px 15px rgba(0,0,0,0.15);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.2);
+            --shadow-xl: 0 20px 60px rgba(0,0,0,0.25);
+            
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            --gradient-success: linear-gradient(135deg, var(--success), #059669);
+            --gradient-info: linear-gradient(135deg, var(--info), #2563eb);
+            --gradient-warning: linear-gradient(135deg, var(--warning), #d97706);
+            --gradient-danger: linear-gradient(135deg, var(--danger), #dc2626);
+            
+            /* Border Radius */
+            --radius-sm: 8px;
+            --radius-md: 15px;
+            --radius-lg: 20px;
+            --radius-xl: 25px;
+            --radius-2xl: 30px;
+            --radius-full: 50%;
+            
+            /* Transitions */
+            --transition-fast: all 0.2s ease;
+            --transition-normal: all 0.3s ease;
+            --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Spacing */
+            --spacing-xs: 5px;
+            --spacing-sm: 10px;
+            --spacing-md: 15px;
+            --spacing-lg: 20px;
+            --spacing-xl: 30px;
+            --spacing-2xl: 40px;
+            --spacing-3xl: 50px;
+            
+            /* Animations */
+            --animation-duration: 0.3s;
+            --animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
@@ -29,54 +78,52 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230f172a"/><path d="M0 50 L100 50 M50 0 L50 100" stroke="%231e293b" stroke-width="0.5" opacity="0.3"/></svg>');
-            background-size: 50px 50px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 20s ease infinite;
+            color: var(--dark);
             min-height: 100vh;
+            line-height: 1.6;
             overflow-x: hidden;
             position: relative;
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, transparent 0%, rgba(15, 23, 42, 0.9) 100%);
-            z-index: -2;
+        @keyframes gradientBG {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
-        /* Particles Background */
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-
+        /* ==================================== */
+        /*         BASE STYLES                 */
+        /* ==================================== */
+        
         .container {
             max-width: 1600px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 var(--spacing-lg);
             position: relative;
             z-index: 10;
         }
 
-        /* Header with XP Bar */
+        /* ==================================== */
+        /*         HEADER STYLES               */
+        /* ==================================== */
+        
         header {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.9), rgba(139, 92, 246, 0.9));
-            border-radius: 30px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: var(--radius-2xl);
+            padding: var(--spacing-2xl);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--shadow-lg);
             position: relative;
             overflow: hidden;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(99, 102, 241, 0.2);
         }
 
         header::before {
@@ -86,7 +133,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
             animation: rotate 20s linear infinite;
             z-index: -1;
         }
@@ -101,7 +148,7 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 30px;
+            gap: var(--spacing-xl);
         }
 
         .logo-section {
@@ -112,61 +159,68 @@
 
         .logo {
             font-family: 'Orbitron', sans-serif;
-            font-size: 4.5rem;
+            font-size: clamp(2rem, 5vw, 4.5rem);
             font-weight: 800;
-            background: linear-gradient(180deg, #ffffff, #e0e0ff);
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 5px 30px rgba(255, 255, 255, 0.5);
-            margin-bottom: 10px;
-            letter-spacing: 3px;
+            text-shadow: 0 5px 30px rgba(99, 102, 241, 0.5);
+            margin-bottom: var(--spacing-sm);
+            letter-spacing: clamp(1px, 2vw, 3px);
             position: relative;
             animation: glow 2s ease-in-out infinite alternate;
         }
 
         @keyframes glow {
-            from { text-shadow: 0 0 10px rgba(255,255,255,0.5); }
-            to { text-shadow: 0 0 30px rgba(255,255,255,0.8), 0 0 60px rgba(99, 102, 241, 0.6); }
+            from { text-shadow: 0 0 10px rgba(99, 102, 241, 0.5); }
+            to { text-shadow: 0 0 30px rgba(99, 102, 241, 0.8), 0 0 60px rgba(99, 102, 241, 0.6); }
         }
 
         .tagline {
-            font-size: 1.4rem;
-            color: rgba(255, 255, 255, 0.95);
-            margin-top: 10px;
+            font-size: clamp(0.9rem, 2vw, 1.4rem);
+            color: var(--gray-dark);
+            margin-top: var(--spacing-xs);
             font-weight: 300;
             letter-spacing: 1px;
         }
 
         .british-flag {
-            font-size: 3rem;
-            margin-bottom: 15px;
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: var(--spacing-sm);
             animation: pulse 2s infinite;
-            filter: drop-shadow(0 0 10px white);
         }
 
-        /* User Profile Card */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* ==================================== */
+        /*         USER PROFILE STYLES         */
+        /* ==================================== */
+        
         .user-profile {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 25px;
-            padding: 25px;
-            min-width: 350px;
-            box-shadow: var(--shadow);
-            border: 2px solid rgba(99, 102, 241, 0.3);
+            background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(248,250,252,0.98));
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-lg);
+            min-width: 280px;
+            box-shadow: var(--shadow-md);
+            border: 2px solid rgba(99, 102, 241, 0.2);
         }
 
         .profile-header {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
         }
 
         .avatar {
             width: 60px;
             height: 60px;
-            border-radius: 50%;
-            background: var(--gradient);
+            border-radius: var(--radius-full);
+            background: var(--gradient-primary);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -174,50 +228,57 @@
             color: white;
             font-weight: bold;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            flex-shrink: 0;
         }
 
         .profile-info h3 {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--dark);
+            margin-bottom: var(--spacing-xs);
         }
 
         .profile-info p {
             color: var(--gray);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
-        /* XP System */
+        /* ==================================== */
+        /*         XP SYSTEM STYLES            */
+        /* ==================================== */
+        
         .xp-system {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            padding: 20px;
-            margin-top: 15px;
-            border: 2px solid rgba(16, 185, 129, 0.3);
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(241,245,249,0.95));
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+            margin-top: var(--spacing-sm);
+            border: 2px solid rgba(16, 185, 129, 0.2);
         }
 
         .xp-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
+            align-items: center;
+            margin-bottom: var(--spacing-xs);
         }
 
         .xp-title {
             font-weight: 600;
             color: var(--dark);
+            font-size: 0.95rem;
         }
 
         .xp-level {
-            background: var(--gradient);
+            background: var(--gradient-primary);
             color: white;
             padding: 3px 10px;
             border-radius: 15px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: bold;
         }
 
         .xp-bar-container {
-            background: #e2e8f0;
+            background: var(--gray-light);
             border-radius: 15px;
             height: 12px;
             overflow: hidden;
@@ -227,7 +288,7 @@
 
         .xp-bar {
             height: 100%;
-            background: var(--gradient);
+            background: var(--gradient-primary);
             width: 0%;
             border-radius: 15px;
             transition: width 0.8s ease;
@@ -246,28 +307,37 @@
             animation: shine 2s infinite;
         }
 
-        .xp-text {
-            font-size: 0.85rem;
-            color: var(--gray);
-            text-align: center;
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
-        /* Stats Dashboard */
+        .xp-text {
+            font-size: 0.8rem;
+            color: var(--gray);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* ==================================== */
+        /*         STATS DASHBOARD STYLES      */
+        /* ==================================== */
+        
         .stats-dashboard {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
         }
 
         .stat-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 25px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,250,252,0.95));
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
             text-align: center;
-            box-shadow: var(--shadow);
-            border: 2px solid rgba(99, 102, 241, 0.2);
-            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            border: 2px solid rgba(99, 102, 241, 0.15);
+            transition: var(--transition-normal);
             position: relative;
             overflow: hidden;
         }
@@ -278,99 +348,117 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 5px;
-            background: var(--gradient);
+            height: 4px;
+            background: var(--gradient-primary);
         }
 
         .stat-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: rgba(99, 102, 241, 0.3);
         }
 
         .stat-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            background: var(--gradient);
+            font-size: 2.2rem;
+            margin-bottom: var(--spacing-sm);
+            background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
         .stat-number {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 800;
             color: var(--dark);
             font-family: 'Montserrat', sans-serif;
-            margin-bottom: 5px;
+            margin-bottom: var(--spacing-xs);
         }
 
         .stat-label {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--gray);
             font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        /* Quick Actions */
+        /* ==================================== */
+        /*         QUICK ACTIONS STYLES        */
+        /* ==================================== */
+        
         .quick-actions {
             display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-xl);
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .action-btn {
-            background: rgba(255, 255, 255, 0.95);
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,250,252,0.95));
             border: none;
-            padding: 15px 30px;
-            border-radius: 15px;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-md);
             cursor: pointer;
-            font-size: 1rem;
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: var(--transition-normal);
             display: flex;
             align-items: center;
-            gap: 10px;
-            box-shadow: var(--shadow);
+            gap: 8px;
+            box-shadow: var(--shadow-md);
             border: 2px solid transparent;
+            min-width: 160px;
         }
 
         .action-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            border-color: rgba(99, 102, 241, 0.5);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl);
+            border-color: rgba(99, 102, 241, 0.4);
         }
 
         .action-btn.primary {
-            background: var(--gradient);
+            background: var(--gradient-primary);
             color: white;
         }
 
         .action-btn.success {
-            background: linear-gradient(135deg, var(--success), #059669);
+            background: var(--gradient-success);
             color: white;
         }
 
         .action-btn.warning {
-            background: linear-gradient(135deg, var(--warning), #d97706);
+            background: var(--gradient-warning);
             color: white;
         }
 
         .action-btn.info {
-            background: linear-gradient(135deg, var(--info), #2563eb);
+            background: var(--gradient-info);
             color: white;
         }
 
-        /* Categories Section */
+        .action-btn.danger {
+            background: var(--gradient-danger);
+            color: white;
+        }
+
+        /* ==================================== */
+        /*         SECTION STYLES              */
+        /* ==================================== */
+        
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: var(--spacing-lg);
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
         }
 
         .section-title {
-            font-size: 2.2rem;
-            color: white;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            color: var(--white);
             font-weight: 800;
             font-family: 'Montserrat', sans-serif;
             position: relative;
@@ -391,27 +479,33 @@
         .view-all {
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
-            font-size: 1rem;
-            transition: color 0.3s ease;
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+            transition: var(--transition-fast);
+            font-weight: 500;
         }
 
         .view-all:hover {
             color: white;
+            text-decoration: underline;
         }
 
+        /* ==================================== */
+        /*         CATEGORIES GRID STYLES      */
+        /* ==================================== */
+        
         .categories-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
         }
 
         .category-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 25px;
-            padding: 30px 20px;
-            box-shadow: var(--shadow);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,250,252,0.95));
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl) var(--spacing-lg);
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-slow);
             cursor: pointer;
             position: relative;
             overflow: hidden;
@@ -426,44 +520,44 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--gradient);
+            background: var(--gradient-primary);
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: var(--transition-normal);
             z-index: -1;
         }
 
         .category-card:hover {
-            transform: translateY(-15px) scale(1.05);
-            box-shadow: 0 25px 70px rgba(0,0,0,0.3);
-            border-color: rgba(99, 102, 241, 0.5);
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: var(--shadow-xl);
+            border-color: rgba(99, 102, 241, 0.4);
         }
 
         .category-card:hover::before {
-            opacity: 0.1;
+            opacity: 0.08;
         }
 
         .category-icon {
-            font-size: 4.5rem;
-            margin-bottom: 20px;
-            background: var(--gradient);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            margin-bottom: var(--spacing-md);
+            background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            transition: transform 0.6s ease;
+            transition: var(--transition-slow);
             position: relative;
             z-index: 1;
         }
 
         .category-card:hover .category-icon {
-            transform: rotate(360deg) scale(1.3);
-            filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.5));
+            transform: rotate(360deg) scale(1.2);
+            filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.4));
         }
 
         .category-name {
-            font-size: 1.8rem;
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
             font-weight: 800;
             color: var(--dark);
-            margin-bottom: 10px;
+            margin-bottom: var(--spacing-sm);
             font-family: 'Montserrat', sans-serif;
             position: relative;
             z-index: 1;
@@ -471,8 +565,8 @@
 
         .category-progress {
             width: 80%;
-            margin: 15px auto;
-            background: #e2e8f0;
+            margin: var(--spacing-sm) auto;
+            background: var(--gray-light);
             border-radius: 10px;
             height: 8px;
             overflow: hidden;
@@ -480,14 +574,14 @@
 
         .category-progress-bar {
             height: 100%;
-            background: var(--gradient);
+            background: var(--gradient-primary);
             width: 0%;
             border-radius: 10px;
             transition: width 0.6s ease;
         }
 
         .category-count {
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             color: var(--gray);
             font-weight: 600;
             position: relative;
@@ -497,8 +591,8 @@
         .category-words {
             display: flex;
             justify-content: center;
-            gap: 8px;
-            margin-top: 15px;
+            gap: 6px;
+            margin-top: var(--spacing-sm);
             flex-wrap: wrap;
             position: relative;
             z-index: 1;
@@ -507,32 +601,35 @@
         .word-badge {
             background: rgba(99, 102, 241, 0.1);
             color: var(--primary);
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: var(--transition-fast);
         }
 
         .word-badge:hover {
             background: var(--primary);
             color: white;
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
-        /* Add Category Card */
+        /* ==================================== */
+        /*         ADD CATEGORY CARD STYLES    */
+        /* ==================================== */
+        
         .add-category-card {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-            border: 3px dashed rgba(255, 255, 255, 0.5);
-            border-radius: 25px;
-            padding: 50px 20px;
+            border: 3px dashed rgba(255, 255, 255, 0.4);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-2xl) var(--spacing-lg);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 20px;
+            gap: var(--spacing-md);
             cursor: pointer;
-            transition: all 0.4s ease;
+            transition: var(--transition-normal);
             color: white;
             text-align: center;
         }
@@ -545,33 +642,36 @@
         }
 
         .add-icon {
-            font-size: 4rem;
+            font-size: clamp(2.5rem, 5vw, 4rem);
             animation: bounce 2s infinite;
-            background: var(--gradient);
+            background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.15); }
+        }
+
         .add-category-card h3 {
-            font-size: 1.5rem;
+            font-size: clamp(1rem, 2vw, 1.5rem);
             font-weight: 600;
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-20px) scale(1.2); }
-        }
-
-        /* Words Section */
+        /* ==================================== */
+        /*         WORDS SECTION STYLES        */
+        /* ==================================== */
+        
         .words-section {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 30px;
-            padding: 40px;
-            box-shadow: var(--shadow);
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,250,252,0.95));
+            border-radius: var(--radius-2xl);
+            padding: var(--spacing-2xl);
+            box-shadow: var(--shadow-lg);
             display: none;
             animation: slideUp 0.6s ease;
-            border: 2px solid rgba(99, 102, 241, 0.3);
+            border: 2px solid rgba(99, 102, 241, 0.2);
             position: relative;
             overflow: hidden;
         }
@@ -583,13 +683,13 @@
             left: 0;
             width: 100%;
             height: 5px;
-            background: var(--gradient);
+            background: var(--gradient-primary);
         }
 
         @keyframes slideUp {
             from {
                 opacity: 0;
-                transform: translateY(50px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -601,48 +701,52 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 3px solid rgba(99, 102, 241, 0.3);
+            margin-bottom: var(--spacing-xl);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 3px solid rgba(99, 102, 241, 0.2);
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
         }
 
         .words-title {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
             color: var(--dark);
             font-weight: 900;
             font-family: 'Montserrat', sans-serif;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: var(--spacing-sm);
         }
 
         .words-title i {
-            background: var(--gradient);
+            background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            font-size: 2.2rem;
+            font-size: clamp(1.5rem, 2.5vw, 2.2rem);
         }
 
         .words-actions {
             display: flex;
-            gap: 15px;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
         }
 
         .btn {
-            padding: 15px 30px;
+            padding: var(--spacing-md) var(--spacing-lg);
             border: none;
-            border-radius: 15px;
+            border-radius: var(--radius-md);
             cursor: pointer;
-            font-size: 1.05rem;
+            font-size: clamp(0.9rem, 1.5vw, 1.05rem);
             font-weight: 700;
-            transition: all 0.3s ease;
+            transition: var(--transition-normal);
             display: flex;
             align-items: center;
-            gap: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            gap: 8px;
+            box-shadow: var(--shadow-md);
             position: relative;
             overflow: hidden;
+            min-width: 140px;
         }
 
         .btn::before {
@@ -652,9 +756,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--gradient);
+            background: var(--gradient-primary);
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: var(--transition-fast);
             z-index: -1;
         }
 
@@ -663,7 +767,7 @@
         }
 
         .btn-primary {
-            background: var(--gradient);
+            background: var(--gradient-primary);
             color: white;
         }
 
@@ -674,8 +778,8 @@
         }
 
         .btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl);
         }
 
         .btn:active {
@@ -684,21 +788,21 @@
 
         .words-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: var(--spacing-lg);
         }
 
         .word-card {
             background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-            border-radius: 25px;
-            padding: 35px 25px;
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-xl) var(--spacing-lg);
             text-align: center;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: var(--transition-slow);
             cursor: pointer;
             border: 3px solid transparent;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            box-shadow: var(--shadow-sm);
         }
 
         .word-card::before {
@@ -708,9 +812,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--gradient);
+            background: var(--gradient-primary);
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: var(--transition-normal);
             z-index: -1;
         }
 
@@ -723,14 +827,14 @@
             height: 200%;
             background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: var(--transition-normal);
             z-index: -1;
         }
 
         .word-card:hover {
-            transform: translateY(-15px) scale(1.05);
+            transform: translateY(-8px) scale(1.03);
             border-color: var(--primary);
-            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
         }
 
         .word-card:hover::before {
@@ -747,34 +851,34 @@
         }
 
         .word-card.learned::before {
-            background: linear-gradient(135deg, var(--success), #059669);
+            background: var(--gradient-success);
             opacity: 0.15;
         }
 
         .english-word {
-            font-size: 2.2rem;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
             font-weight: 900;
             color: var(--primary);
             font-family: 'Montserrat', sans-serif;
-            margin-bottom: 10px;
+            margin-bottom: var(--spacing-xs);
             letter-spacing: 1px;
             position: relative;
             z-index: 1;
         }
 
         .arabic-word {
-            font-size: 1.3rem;
+            font-size: clamp(1rem, 2vw, 1.3rem);
             color: var(--dark);
             font-weight: 600;
-            margin-bottom: 12px;
+            margin-bottom: var(--spacing-sm);
             position: relative;
             z-index: 1;
         }
 
         .pronunciation {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--gray);
-            margin-bottom: 18px;
+            margin-bottom: var(--spacing-md);
             font-style: italic;
             position: relative;
             z-index: 1;
@@ -784,9 +888,9 @@
             display: inline-block;
             padding: 4px 12px;
             border-radius: 12px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            margin-bottom: 15px;
+            margin-bottom: var(--spacing-md);
             position: relative;
             z-index: 1;
         }
@@ -809,51 +913,54 @@
         .word-actions {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            margin-top: 18px;
+            gap: 10px;
+            margin-top: var(--spacing-md);
             position: relative;
             z-index: 1;
         }
 
         .word-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            border-radius: var(--radius-full);
             display: flex;
             align-items: center;
             justify-content: center;
             border: none;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1.2rem;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+            transition: var(--transition-normal);
+            font-size: 1.1rem;
+            box-shadow: var(--shadow-sm);
         }
 
         .word-btn.speak {
-            background: linear-gradient(135deg, var(--primary), #4f46e5);
+            background: var(--gradient-primary);
             color: white;
         }
 
         .word-btn.learn {
-            background: linear-gradient(135deg, var(--success), #059669);
+            background: var(--gradient-success);
             color: white;
         }
 
         .word-btn.example {
-            background: linear-gradient(135deg, var(--info), #1d4ed8);
+            background: var(--gradient-info);
             color: white;
         }
 
         .word-btn:hover {
-            transform: scale(1.2) rotate(15deg);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            transform: scale(1.15) rotate(10deg);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.25);
         }
 
         .word-btn:active {
             transform: scale(1);
         }
 
-        /* Modals */
+        /* ==================================== */
+        /*         MODAL STYLES                */
+        /* ==================================== */
+        
         .modal {
             display: none;
             position: fixed;
@@ -865,9 +972,9 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(5px);
             animation: modalFadeIn 0.4s ease;
-            padding: 20px;
+            padding: var(--spacing-md);
         }
 
         @keyframes modalFadeIn {
@@ -877,14 +984,14 @@
 
         .modal-content {
             background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(248,250,252,0.98));
-            border-radius: 35px;
-            padding: 60px;
-            max-width: 700px;
-            width: 95%;
-            box-shadow: 0 30px 100px rgba(0,0,0,0.5);
+            border-radius: var(--radius-2xl);
+            padding: var(--spacing-2xl);
+            max-width: 650px;
+            width: 100%;
+            box-shadow: var(--shadow-xl);
             animation: modalSlideUp 0.6s ease;
             position: relative;
-            border: 3px solid rgba(99, 102, 241, 0.3);
+            border: 3px solid rgba(99, 102, 241, 0.2);
             max-height: 90vh;
             overflow-y: auto;
         }
@@ -892,7 +999,7 @@
         @keyframes modalSlideUp {
             from {
                 opacity: 0;
-                transform: translateY(80px) scale(0.9);
+                transform: translateY(50px) scale(0.95);
             }
             to {
                 opacity: 1;
@@ -902,15 +1009,15 @@
 
         .close-modal {
             position: absolute;
-            top: 25px;
-            right: 25px;
-            font-size: 2.2rem;
+            top: var(--spacing-md);
+            right: var(--spacing-md);
+            font-size: 1.8rem;
             cursor: pointer;
             color: var(--gray);
-            transition: all 0.3s ease;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
+            transition: var(--transition-fast);
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -924,9 +1031,9 @@
         }
 
         .modal-title {
-            font-size: 2.3rem;
+            font-size: clamp(1.5rem, 3vw, 2.3rem);
             color: var(--dark);
-            margin-bottom: 35px;
+            margin-bottom: var(--spacing-xl);
             text-align: center;
             font-weight: 900;
             font-family: 'Montserrat', sans-serif;
@@ -941,20 +1048,20 @@
             transform: translateX(-50%);
             width: 80px;
             height: 4px;
-            background: var(--gradient);
+            background: var(--gradient-primary);
             border-radius: 2px;
         }
 
         .form-group {
-            margin-bottom: 28px;
+            margin-bottom: var(--spacing-lg);
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 12px;
+            margin-bottom: var(--spacing-xs);
             color: var(--dark);
             font-weight: 700;
-            font-size: 1.15rem;
+            font-size: 1rem;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -964,11 +1071,11 @@
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 16px;
-            border: 2px solid #e2e8f0;
-            border-radius: 15px;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
+            padding: var(--spacing-md);
+            border: 2px solid var(--gray-light);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: var(--transition-fast);
             font-family: 'Poppins', sans-serif;
             background: white;
         }
@@ -978,7 +1085,7 @@
         .form-group textarea:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 5px rgba(99, 102, 241, 0.15);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
         }
 
         .form-group input::placeholder,
@@ -994,21 +1101,24 @@
 
         .modal-buttons {
             display: flex;
-            gap: 20px;
+            gap: var(--spacing-md);
             justify-content: center;
-            margin-top: 40px;
+            margin-top: var(--spacing-xl);
             flex-wrap: wrap;
         }
 
-        /* Progress Section */
+        /* ==================================== */
+        /*         PROGRESS SECTION STYLES     */
+        /* ==================================== */
+        
         .progress-section {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 30px;
-            padding: 50px;
-            margin-top: 30px;
-            box-shadow: var(--shadow);
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,250,252,0.95));
+            border-radius: var(--radius-2xl);
+            padding: var(--spacing-2xl);
+            margin-top: var(--spacing-xl);
+            box-shadow: var(--shadow-lg);
             text-align: center;
-            border: 2px solid rgba(99, 102, 241, 0.3);
+            border: 2px solid rgba(99, 102, 241, 0.2);
             position: relative;
             overflow: hidden;
         }
@@ -1020,66 +1130,66 @@
             left: 0;
             width: 100%;
             height: 5px;
-            background: var(--gradient);
+            background: var(--gradient-primary);
         }
 
         .progress-title {
-            font-size: 2.2rem;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
             color: var(--dark);
-            margin-bottom: 35px;
+            margin-bottom: var(--spacing-xl);
             font-weight: 800;
             font-family: 'Montserrat', sans-serif;
         }
 
         .progress-stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
             justify-content: center;
         }
 
         .progress-stat {
             text-align: center;
-            padding: 25px;
-            min-width: 180px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.5), rgba(241,245,249,0.5));
-            border-radius: 20px;
-            border: 2px solid rgba(99, 102, 241, 0.2);
+            padding: var(--spacing-lg);
+            min-width: 150px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.7), rgba(241,245,249,0.7));
+            border-radius: var(--radius-lg);
+            border: 2px solid rgba(99, 102, 241, 0.15);
         }
 
         .progress-number {
-            font-size: 3.5rem;
+            font-size: clamp(2rem, 4vw, 3.5rem);
             font-weight: 900;
-            background: var(--gradient);
+            background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             font-family: 'Montserrat', sans-serif;
-            margin-bottom: 8px;
+            margin-bottom: var(--spacing-xs);
         }
 
         .progress-label {
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             color: var(--gray);
-            margin-top: 8px;
+            margin-top: var(--spacing-xs);
             font-weight: 600;
         }
 
         .progress-bar-container {
-            background: #e2e8f0;
+            background: var(--gray-light);
             border-radius: 25px;
-            height: 30px;
+            height: 28px;
             overflow: hidden;
             position: relative;
-            margin-bottom: 20px;
+            margin-bottom: var(--spacing-md);
             border: 3px solid white;
             box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
 
         .progress-bar {
             height: 100%;
-            background: var(--gradient);
+            background: var(--gradient-primary);
             width: 0%;
             border-radius: 25px;
             transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1099,70 +1209,73 @@
         }
 
         .progress-text {
-            margin-top: 15px;
-            font-size: 1.3rem;
+            margin-top: var(--spacing-md);
+            font-size: clamp(1rem, 2vw, 1.3rem);
             font-weight: 700;
             color: var(--dark);
             font-family: 'Montserrat', sans-serif;
         }
 
-        /* Achievements */
+        /* ==================================== */
+        /*         ACHIEVEMENTS STYLES         */
+        /* ==================================== */
+        
         .achievements-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 25px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
             justify-content: center;
         }
 
         .badge {
             background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-            border-radius: 20px;
-            padding: 25px 15px;
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md) var(--spacing-sm);
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
             position: relative;
-            transition: all 0.4s ease;
-            border: 3px solid #e2e8f0;
+            transition: var(--transition-normal);
+            border: 3px solid var(--gray-light);
             cursor: pointer;
             text-align: center;
-            min-height: 160px;
+            min-height: 140px;
         }
 
         .badge:hover {
-            transform: translateY(-10px) scale(1.1);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: var(--shadow-xl);
             border-color: var(--primary);
         }
 
         .badge-icon {
-            font-size: 2.8rem;
-            margin-bottom: 12px;
-            transition: transform 0.4s ease;
+            font-size: clamp(1.8rem, 3vw, 2.8rem);
+            margin-bottom: var(--spacing-xs);
+            transition: var(--transition-normal);
         }
 
         .badge:hover .badge-icon {
-            transform: rotate(360deg) scale(1.3);
+            transform: rotate(360deg) scale(1.2);
         }
 
         .badge-name {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--gray);
             text-align: center;
             font-weight: 700;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
 
         .badge-requirement {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--gray);
             opacity: 0.7;
         }
 
         .badge.achieved {
-            background: linear-gradient(135deg, var(--success), #059669);
+            background: var(--gradient-success);
             border-color: var(--success);
         }
 
@@ -1176,48 +1289,51 @@
             color: rgba(255, 255, 255, 0.95);
         }
 
-        /* Challenge Section */
+        /* ==================================== */
+        /*         CHALLENGE SECTION STYLES    */
+        /* ==================================== */
+        
         .challenge-section {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 30px;
-            padding: 40px;
-            margin-top: 30px;
-            box-shadow: var(--shadow);
-            border: 2px solid rgba(236, 72, 153, 0.3);
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(248,250,252,0.95));
+            border-radius: var(--radius-2xl);
+            padding: var(--spacing-2xl);
+            margin-top: var(--spacing-xl);
+            box-shadow: var(--shadow-lg);
+            border: 2px solid rgba(236, 72, 153, 0.2);
         }
 
         .challenge-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: var(--spacing-xl);
         }
 
         .challenge-title {
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 3vw, 2rem);
             color: var(--dark);
             font-weight: 800;
             font-family: 'Montserrat', sans-serif;
-            margin-bottom: 10px;
+            margin-bottom: var(--spacing-sm);
         }
 
         .challenge-desc {
             color: var(--gray);
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .challenge-card {
             background: linear-gradient(135deg, rgba(255,255,255,0.7), rgba(248,250,252,0.7));
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 20px;
-            border: 2px solid rgba(99, 102, 241, 0.2);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
+            border: 2px solid rgba(99, 102, 241, 0.15);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition-normal);
         }
 
         .challenge-card:hover {
-            transform: translateX(10px);
+            transform: translateX(8px);
             border-color: var(--primary);
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.2);
         }
 
         .challenge-card.completed {
@@ -1229,27 +1345,29 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: var(--spacing-sm);
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
         }
 
         .challenge-name {
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--dark);
         }
 
         .challenge-reward {
-            background: var(--gradient);
+            background: var(--gradient-primary);
             color: white;
-            padding: 5px 15px;
-            border-radius: 15px;
-            font-size: 0.9rem;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
             font-weight: bold;
         }
 
         .challenge-progress {
             width: 100%;
-            background: #e2e8f0;
+            background: var(--gray-light);
             border-radius: 10px;
             height: 8px;
             overflow: hidden;
@@ -1257,104 +1375,88 @@
 
         .challenge-progress-bar {
             height: 100%;
-            background: var(--gradient);
+            background: var(--gradient-primary);
             width: 0%;
             border-radius: 10px;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .logo {
-                font-size: 3rem;
-            }
-            
-            .tagline {
-                font-size: 1rem;
-            }
-            
-            .header-content {
-                flex-direction: column;
-                gap: 20px;
-            }
-            
-            .user-profile {
-                min-width: 100%;
-            }
-            
-            .categories-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .words-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .words-header {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .modal-content {
-                padding: 30px 20px;
-            }
-            
-            .stats-dashboard {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .progress-stats {
-                grid-template-columns: 1fr;
-            }
-            
-            .achievements-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        /* ==================================== */
+        /*         FOOTER STYLES               */
+        /* ==================================== */
+        
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: var(--radius-2xl);
+            padding: var(--spacing-xl);
+            margin-top: var(--spacing-xl);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            border: 2px solid rgba(99, 102, 241, 0.15);
         }
 
-        /* Animations */
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-lg);
+            margin: var(--spacing-md) 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--gray);
+            text-decoration: none;
+            transition: var(--transition-fast);
+            font-weight: 500;
+        }
+
+        .footer-link:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .copyright {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: var(--spacing-md);
+        }
+
+        /* ==================================== */
+        /*         ANIMATIONS                  */
+        /* ==================================== */
+        
         @keyframes celebrate {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.3); }
+            50% { transform: scale(1.2); }
         }
 
         .celebrate {
-            animation: celebrate 0.6s ease;
+            animation: celebrate 0.5s ease;
         }
 
         @keyframes levelUp {
             0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(2); opacity: 0.9; }
+            50% { transform: scale(1.5); opacity: 0.9; }
             100% { transform: scale(1); opacity: 1; }
         }
 
         .level-up-animation {
             animation: levelUp 1s ease;
-        }
-
-        /* Loading Animation */
-        .loading {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            border: 4px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Confetti */
-        .confetti {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background: var(--primary);
-            border-radius: 50%;
-            animation: fall linear forwards;
-            z-index: 9999;
         }
 
         @keyframes fall {
@@ -1363,13 +1465,301 @@
                 opacity: 0;
             }
         }
+
+        .confetti {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: var(--radius-full);
+            animation: fall linear forwards;
+            z-index: 9999;
+            animation-duration: 3s;
+        }
+
+        /* ==================================== */
+        /*         RESPONSIVE STYLES           */
+        /* ==================================== */
+        
+        @media (max-width: 1024px) {
+            .header-content {
+                flex-direction: column;
+                gap: var(--spacing-lg);
+            }
+            
+            .logo-section {
+                min-width: 100%;
+            }
+            
+            .user-profile {
+                min-width: 100%;
+            }
+            
+            .words-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .words-actions {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .btn {
+                min-width: 120px;
+                font-size: 0.9rem;
+                padding: 12px 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: var(--spacing-lg);
+            }
+            
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 0.9rem;
+            }
+            
+            .categories-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+            
+            .words-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                padding: var(--spacing-xl) var(--spacing-md);
+            }
+            
+            .stats-dashboard {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .progress-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .achievements-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .quick-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .english-word {
+                font-size: 1.8rem;
+            }
+            
+            .arabic-word {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 0 var(--spacing-sm);
+            }
+            
+            .container {
+                padding: 0 var(--spacing-sm);
+            }
+            
+            header {
+                padding: var(--spacing-md);
+                margin-bottom: var(--spacing-md);
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .tagline {
+                font-size: 0.8rem;
+            }
+            
+            .british-flag {
+                font-size: 2rem;
+            }
+            
+            .user-profile {
+                padding: var(--spacing-md);
+            }
+            
+            .profile-info h3 {
+                font-size: 1.1rem;
+            }
+            
+            .avatar {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            
+            .stat-card {
+                padding: var(--spacing-md);
+            }
+            
+            .stat-number {
+                font-size: 1.8rem;
+            }
+            
+            .stat-label {
+                font-size: 0.8rem;
+            }
+            
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-card {
+                padding: var(--spacing-lg) var(--spacing-md);
+            }
+            
+            .category-icon {
+                font-size: 3rem;
+            }
+            
+            .category-name {
+                font-size: 1.4rem;
+            }
+            
+            .words-section {
+                padding: var(--spacing-xl) var(--spacing-md);
+            }
+            
+            .words-title {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                min-width: 100px;
+                font-size: 0.85rem;
+                padding: 10px 15px;
+            }
+            
+            .word-card {
+                padding: var(--spacing-lg) var(--spacing-md);
+            }
+            
+            .english-word {
+                font-size: 1.6rem;
+            }
+            
+            .arabic-word {
+                font-size: 1rem;
+            }
+            
+            .word-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
+            }
+            
+            .modal-content {
+                padding: var(--spacing-lg) var(--spacing-sm);
+            }
+            
+            .modal-title {
+                font-size: 1.6rem;
+                margin-bottom: var(--spacing-lg);
+            }
+            
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            
+            .achievements-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .badge {
+                min-height: 120px;
+                padding: var(--spacing-sm);
+            }
+            
+            .badge-icon {
+                font-size: 2rem;
+            }
+            
+            .badge-name {
+                font-size: 0.8rem;
+            }
+            
+            .badge-requirement {
+                font-size: 0.65rem;
+            }
+            
+            .progress-number {
+                font-size: 2.5rem;
+            }
+            
+            .progress-label {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* ==================================== */
+        /*         ACCESSIBILITY               */
+        /* ==================================== */
+        
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Focus states for accessibility */
+        .btn:focus,
+        .action-btn:focus,
+        .word-btn:focus,
+        .category-card:focus,
+        .word-card:focus {
+            outline: 3px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .stat-card,
+            .category-card,
+            .word-card {
+                border: 3px solid var(--primary);
+            }
+        }
     </style>
 </head>
 <body>
-    <div id="particles-js"></div>
-    
     <div class="container">
-        <!-- Header with XP System -->
+        <!-- Header -->
         <header>
             <div class="header-content">
                 <div class="logo-section">
@@ -1449,7 +1839,7 @@
             <button class="action-btn info" onclick="viewAchievements()">
                 <i class="fas fa-medal"></i> Achievements
             </button>
-            <button class="action-btn" style="background: linear-gradient(135deg, #f43f5e, #dc2626); color: white;" onclick="openLeaderboard()">
+            <button class="action-btn danger" onclick="openLeaderboard()">
                 <i class="fas fa-chart-line"></i> Leaderboard
             </button>
         </div>
@@ -1486,7 +1876,7 @@
                     <button class="btn btn-primary" onclick="openAddWordModal()">
                         <i class="fas fa-plus"></i> Add Word
                     </button>
-                    <button class="btn" style="background: linear-gradient(135deg, var(--warning), #d97706); color: white;" onclick="startQuiz()">
+                    <button class="btn" style="background: var(--gradient-warning); color: white;" onclick="startQuiz()">
                         <i class="fas fa-question-circle"></i> Quiz
                     </button>
                 </div>
@@ -1525,7 +1915,7 @@
             <div class="progress-text" id="progressText">Start your English mastery journey today! 🚀</div>
 
             <!-- Achievements -->
-            <h4 style="margin: 40px 0 20px; color: var(--dark); font-weight: 700; font-family: 'Montserrat', sans-serif;">🏆 Achievements</h4>
+            <h4 style="margin: var(--spacing-xl) 0 var(--spacing-md); color: var(--dark); font-weight: 700; font-family: 'Montserrat', sans-serif;">🏆 Achievements</h4>
             <div class="achievements-grid">
                 <div class="badge" id="badge10" onclick="showBadgeInfo('10 words mastered!')">
                     <div class="badge-icon">⭐</div>
@@ -1597,6 +1987,25 @@
                 </div>
             </div>
         </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-logo">ENGLISH MASTER PRO</div>
+                <p style="color: var(--gray); margin-bottom: var(--spacing-md); font-size: 0.95rem;">
+                    The ultimate gamified platform for mastering English with British pronunciation
+                </p>
+                <div class="footer-links">
+                    <a href="#" class="footer-link" onclick="alert('Study Tips: 1. Study daily 2. Review regularly 3. Practice speaking 4. Use new words in sentences')">Study Tips</a>
+                    <a href="#" class="footer-link" onclick="alert('British Pronunciation Guide: Focus on vowel sounds and intonation patterns')">Pronunciation Guide</a>
+                    <a href="#" class="footer-link" onclick="alert('Vocabulary Building: Learn 10-15 words daily and review them regularly')">Vocabulary Tips</a>
+                    <a href="#" class="footer-link" onclick="alert('IELTS Preparation: Practice all four skills - Reading, Writing, Listening, Speaking')">IELTS Tips</a>
+                </div>
+                <p class="copyright">
+                    &copy; 2026 English Master Pro. All rights reserved. Designed for IELTS Success! 🚀
+                </p>
+            </div>
+        </footer>
     </div>
 
     <!-- Add Category Modal -->
@@ -1678,49 +2087,8 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // Initialize Particles
-        particlesJS('particles-js', {
-            particles: {
-                number: { value: 80, density: { enable: true, value_area: 800 } },
-                color: { value: "#ffffff" },
-                shape: { type: "circle" },
-                opacity: { value: 0.3, random: true },
-                size: { value: 3, random: true },
-                line_linked: {
-                    enable: true,
-                    distance: 150,
-                    color: "#6366f1",
-                    opacity: 0.2,
-                    width: 1
-                },
-                move: {
-                    enable: true,
-                    speed: 2,
-                    direction: "none",
-                    random: true,
-                    straight: false,
-                    out_mode: "out",
-                    bounce: false
-                }
-            },
-            interactivity: {
-                detect_on: "canvas",
-                events: {
-                    onhover: { enable: true, mode: "grab" },
-                    onclick: { enable: true, mode: "push" },
-                    resize: true
-                },
-                modes: {
-                    grab: { distance: 140, line_linked: { opacity: 0.6 } },
-                    push: { particles_nb: 4 }
-                }
-            },
-            retina_detect: true
-        });
-
-        // Data Storage
+        // Data Storage - Comprehensive Vocabulary
         let categories = {
             animals: {
                 name: "Animals",
@@ -1736,7 +2104,9 @@
                     { en: "Penguin", ar: "بطريق", pronunciation: "/ˈpeŋ.ɡwɪn/", difficulty: "medium", learned: false, example: "Penguins live in cold climates." },
                     { en: "Kangaroo", ar: "كنغر", pronunciation: "/ˌkæŋ.ɡəˈruː/", difficulty: "hard", learned: false, example: "Kangaroos carry their babies in a pouch." },
                     { en: "Butterfly", ar: "فراشة", pronunciation: "/ˈbʌt.ə.flaɪ/", difficulty: "medium", learned: false, example: "Butterflies have beautiful wings." },
-                    { en: "Crocodile", ar: "تمساح", pronunciation: "/ˈkrɒk.ə.daɪl/", difficulty: "hard", learned: false, example: "Crocodiles are dangerous reptiles." }
+                    { en: "Crocodile", ar: "تمساح", pronunciation: "/ˈkrɒk.ə.daɪl/", difficulty: "hard", learned: false, example: "Crocodiles are dangerous reptiles." },
+                    { en: "Zebra", ar: "حمار وحشي", pronunciation: "/ˈziː.brə/", difficulty: "medium", learned: false, example: "Zebras have black and white stripes." },
+                    { en: "Hippopotamus", ar: "فرس النهر", pronunciation: "/ˌhɪp.əˈpɒt.ə.məs/", difficulty: "hard", learned: false, example: "Hippopotamuses spend most of their time in water." }
                 ]
             },
             nature: {
@@ -1753,7 +2123,9 @@
                     { en: "Valley", ar: "وادي", pronunciation: "/ˈvæl.i/", difficulty: "medium", learned: false, example: "The valley was surrounded by mountains." },
                     { en: "Island", ar: "جزيرة", pronunciation: "/ˈaɪ.lənd/", difficulty: "easy", learned: false, example: "Hawaii is a group of islands." },
                     { en: "Rainbow", ar: "قوس قزح", pronunciation: "/ˈreɪn.bəʊ/", difficulty: "medium", learned: false, example: "A rainbow appears after the rain." },
-                    { en: "Volcano", ar: "بركان", pronunciation: "/vɒlˈkeɪ.nəʊ/", difficulty: "hard", learned: false, example: "Mount Vesuvius is an active volcano." }
+                    { en: "Volcano", ar: "بركان", pronunciation: "/vɒlˈkeɪ.nəʊ/", difficulty: "hard", learned: false, example: "Mount Vesuvius is an active volcano." },
+                    { en: "Cave", ar: "كهف", pronunciation: "/keɪv/", difficulty: "medium", learned: false, example: "The cave was dark and mysterious." },
+                    { en: "Glacier", ar: "نهر جليدي", pronunciation: "/ˈɡlæs.i.ər/", difficulty: "hard", learned: false, example: "Glaciers are slowly melting due to climate change." }
                 ]
             },
             technology: {
@@ -1770,7 +2142,9 @@
                     { en: "Headphones", ar: "سماعات", pronunciation: "/ˈhed.fəʊnz/", difficulty: "medium", learned: false, example: "I listen to music with my headphones." },
                     { en: "Camera", ar: "كاميرا", pronunciation: "/ˈkæm.rə/", difficulty: "easy", learned: false, example: "She bought a new camera for her trip." },
                     { en: "Software", ar: "برمجيات", pronunciation: "/ˈsɒft.weər/", difficulty: "hard", learned: false, example: "This software helps with video editing." },
-                    { en: "Artificial Intelligence", ar: "ذكاء اصطناعي", pronunciation: "/ˌɑː.tɪˈfɪʃ.əl ɪnˈtel.ɪ.dʒəns/", difficulty: "hard", learned: false, example: "Artificial Intelligence is changing the world." }
+                    { en: "Artificial Intelligence", ar: "ذكاء اصطناعي", pronunciation: "/ˌɑː.tɪˈfɪʃ.əl ɪnˈtel.ɪ.dʒəns/", difficulty: "hard", learned: false, example: "Artificial Intelligence is changing the world." },
+                    { en: "Virtual Reality", ar: "واقع افتراضي", pronunciation: "/ˈvɜː.tʃu.əl riˈæl.ə.ti/", difficulty: "hard", learned: false, example: "Virtual Reality creates immersive experiences." },
+                    { en: "Blockchain", ar: "بلوك تشين", pronunciation: "/ˈblɒk.tʃeɪn/", difficulty: "hard", learned: false, example: "Blockchain technology is secure and transparent." }
                 ]
             },
             food: {
@@ -1787,7 +2161,9 @@
                     { en: "Tea", ar: "شاي", pronunciation: "/tiː/", difficulty: "easy", learned: false, example: "British people drink a lot of tea." },
                     { en: "Juice", ar: "عصير", pronunciation: "/dʒuːs/", difficulty: "easy", learned: false, example: "Orange juice is rich in vitamin C." },
                     { en: "Sandwich", ar: "ساندويتش", pronunciation: "/ˈsæn.dwɪtʃ/", difficulty: "medium", learned: false, example: "I packed a sandwich for lunch." },
-                    { en: "Spaghetti", ar: "سباغيتي", pronunciation: "/spəˈɡet.i/", difficulty: "hard", learned: false, example: "Spaghetti is a popular Italian dish." }
+                    { en: "Spaghetti", ar: "سباغيتي", pronunciation: "/spəˈɡet.i/", difficulty: "hard", learned: false, example: "Spaghetti is a popular Italian dish." },
+                    { en: "Sushi", ar: "سوشي", pronunciation: "/ˈsuː.ʃi/", difficulty: "medium", learned: false, example: "Sushi is a traditional Japanese food." },
+                    { en: "Croissant", ar: "كرواسون", pronunciation: "/krəˈsɒ̃/", difficulty: "hard", learned: false, example: "Croissants are delicious French pastries." }
                 ]
             },
             sports: {
@@ -1804,7 +2180,9 @@
                     { en: "Boxing", ar: "الملاكمة", pronunciation: "/ˈbɒk.sɪŋ/", difficulty: "medium", learned: false, example: "Boxing requires strength and skill." },
                     { en: "Yoga", ar: "اليوغا", pronunciation: "/ˈjəʊ.ɡə/", difficulty: "medium", learned: false, example: "Yoga helps to reduce stress." },
                     { en: "Golf", ar: "الجولف", pronunciation: "/ɡɒlf/", difficulty: "easy", learned: false, example: "Golf is played on a large grassy field." },
-                    { en: "Cricket", ar: "الكريكيت", pronunciation: "/ˈkrɪk.ɪt/", difficulty: "hard", learned: false, example: "Cricket is very popular in England and India." }
+                    { en: "Cricket", ar: "الكريكيت", pronunciation: "/ˈkrɪk.ɪt/", difficulty: "hard", learned: false, example: "Cricket is very popular in England and India." },
+                    { en: "Volleyball", ar: "كرة الطائرة", pronunciation: "/ˈvɒl.i.bɔːl/", difficulty: "medium", learned: false, example: "Volleyball is played on a court with a net." },
+                    { en: "Badminton", ar: "الريشة الطائرة", pronunciation: "/ˈbæd.mɪn.tən/", difficulty: "hard", learned: false, example: "Badminton requires quick reflexes and agility." }
                 ]
             },
             business: {
@@ -1819,7 +2197,39 @@
                     { en: "Strategy", ar: "استراتيجية", pronunciation: "/ˈstræt.ə.dʒi/", difficulty: "hard", learned: false, example: "The company needs a new marketing strategy." },
                     { en: "Negotiation", ar: "مفاوضات", pronunciation: "/nɪˌɡəʊ.ʃiˈeɪ.ʃən/", difficulty: "hard", learned: false, example: "The negotiation lasted for three hours." },
                     { en: "Entrepreneur", ar: "رائد أعمال", pronunciation: "/ˌɒn.trə.prəˈnɜːr/", difficulty: "hard", learned: false, example: "He is a successful entrepreneur." },
-                    { en: "Innovation", ar: "ابتكار", pronunciation: "/ˌɪn.əˈveɪ.ʃən/", difficulty: "hard", learned: false, example: "Innovation is key to success." }
+                    { en: "Innovation", ar: "ابتكار", pronunciation: "/ˌɪn.əˈveɪ.ʃən/", difficulty: "hard", learned: false, example: "Innovation is key to success." },
+                    { en: "Leadership", ar: "قيادة", pronunciation: "/ˈliː.də.ʃɪp/", difficulty: "medium", learned: false, example: "Good leadership inspires team members." },
+                    { en: "Marketing", ar: "تسويق", pronunciation: "/ˈmɑː.kɪ.tɪŋ/", difficulty: "medium", learned: false, example: "Digital marketing is essential for modern businesses." }
+                ]
+            },
+            travel: {
+                name: "Travel & Tourism",
+                icon: "✈️",
+                color: "#6366f1",
+                words: [
+                    { en: "Airport", ar: "مطار", pronunciation: "/ˈeə.pɔːt/", difficulty: "easy", learned: false, example: "We arrived at the airport two hours early." },
+                    { en: "Passport", ar: "جواز سفر", pronunciation: "/ˈpɑːs.pɔːt/", difficulty: "easy", learned: false, example: "Don't forget to bring your passport." },
+                    { en: "Hotel", ar: "فندق", pronunciation: "/həʊˈtel/", difficulty: "easy", learned: false, example: "We booked a hotel near the beach." },
+                    { en: "Tourist", ar: "سائح", pronunciation: "/ˈtʊə.rɪst/", difficulty: "easy", learned: false, example: "The city attracts many tourists every year." },
+                    { en: "Destination", ar: "وجهة", pronunciation: "/ˌdes.tɪˈneɪ.ʃən/", difficulty: "medium", learned: false, example: "Paris is a popular tourist destination." },
+                    { en: "Sightseeing", ar: "مشاهدة المعالم", pronunciation: "/ˈsaɪtˌsiː.ɪŋ/", difficulty: "hard", learned: false, example: "We spent the day sightseeing around the city." },
+                    { en: "Backpack", ar: "حقيبة ظهر", pronunciation: "/ˈbæk.pæk/", difficulty: "medium", learned: false, example: "She packed everything in her backpack." },
+                    { en: "Adventure", ar: "مغامرة", pronunciation: "/ədˈven.tʃər/", difficulty: "medium", learned: false, example: "They went on an adventure in the mountains." }
+                ]
+            },
+            education: {
+                name: "Education",
+                icon: "🎓",
+                color: "#10b981",
+                words: [
+                    { en: "University", ar: "جامعة", pronunciation: "/ˌjuː.nɪˈvɜː.sə.ti/", difficulty: "medium", learned: false, example: "She studies medicine at university." },
+                    { en: "Professor", ar: "أستاذ", pronunciation: "/prəˈfes.ər/", difficulty: "medium", learned: false, example: "The professor gave an interesting lecture." },
+                    { en: "Student", ar: "طالب", pronunciation: "/ˈstjuː.dənt/", difficulty: "easy", learned: false, example: "He is a hardworking student." },
+                    { en: "Classroom", ar: "فصل دراسي", pronunciation: "/ˈklɑːs.ruːm/", difficulty: "easy", learned: false, example: "The classroom was full of students." },
+                    { en: "Homework", ar: "واجب منزلي", pronunciation: "/ˈhəʊm.wɜːk/", difficulty: "easy", learned: false, example: "I need to finish my homework tonight." },
+                    { en: "Exam", ar: "امتحان", pronunciation: "/ɪɡˈzæm/", difficulty: "easy", learned: false, example: "The final exam is next week." },
+                    { en: "Degree", ar: "درجة علمية", pronunciation: "/dɪˈɡriː/", difficulty: "medium", learned: false, example: "She earned her degree in engineering." },
+                    { en: "Scholarship", ar: "منحة دراسية", pronunciation: "/ˈskɒl.ə.ʃɪp/", difficulty: "hard", learned: false, example: "He received a scholarship to study abroad." }
                 ]
             }
         };
@@ -1854,6 +2264,13 @@
             checkAchievements();
             startStudyTimer();
             updateChallengeProgress();
+            
+            // Load voices for speech synthesis
+            if ('speechSynthesis' in window) {
+                speechSynthesis.onvoiceschanged = () => {
+                    speechSynthesis.getVoices();
+                };
+            }
         };
 
         // Render Categories
@@ -1869,6 +2286,7 @@
                 const card = document.createElement('div');
                 card.className = 'category-card';
                 card.onclick = () => showWords(key);
+                card.tabIndex = 0;
                 
                 // Calculate progress
                 const totalWords = category.words.length;
@@ -1907,6 +2325,7 @@
                 const card = document.createElement('div');
                 card.className = 'category-card';
                 card.onclick = () => showWords(key);
+                card.tabIndex = 0;
                 
                 const totalWords = category.words.length;
                 const learnedWords = category.words.filter(w => w.learned).length;
@@ -1953,7 +2372,9 @@
                 technology: 'laptop',
                 food: 'utensils',
                 sports: 'futbol',
-                business: 'briefcase'
+                business: 'briefcase',
+                travel: 'plane',
+                education: 'graduation-cap'
             };
             return icons[key] || 'folder';
         }
@@ -1968,6 +2389,7 @@
             category.words.forEach((word, index) => {
                 const card = document.createElement('div');
                 card.className = `word-card ${word.learned ? 'learned' : ''}`;
+                card.tabIndex = 0;
                 
                 card.innerHTML = `
                     <div class="english-word">${word.en}</div>
@@ -1977,13 +2399,13 @@
                         ${word.difficulty === 'easy' ? '🟢 Easy' : word.difficulty === 'medium' ? '🟡 Medium' : '🔴 Hard'}
                     </div>
                     <div class="word-actions">
-                        <button class="word-btn speak" onclick="speakWord('${word.en}', event)" title="Pronounce">
+                        <button class="word-btn speak" onclick="speakWord('${word.en.replace(/'/g, "\\'")}', event)" title="Pronounce" aria-label="Pronounce ${word.en}">
                             <i class="fas fa-volume-up"></i>
                         </button>
-                        <button class="word-btn example" onclick="showExample('${word.example || 'No example available.'}', event)" title="Example">
+                        <button class="word-btn example" onclick="showExample('${word.example.replace(/'/g, "\\'")}', event)" title="Example" aria-label="Example sentence for ${word.en}">
                             <i class="fas fa-quote-right"></i>
                         </button>
-                        <button class="word-btn learn" onclick="toggleLearned(${index}, event)" title="${word.learned ? 'Mark as not learned' : 'Mark as learned'}">
+                        <button class="word-btn learn" onclick="toggleLearned(${index}, event)" title="${word.learned ? 'Mark as not learned' : 'Mark as learned'}" aria-label="${word.learned ? 'Unlearn' : 'Learn'} ${word.en}">
                             <i class="fas ${word.learned ? 'fa-check' : 'fa-star'}"></i>
                         </button>
                     </div>
@@ -1995,7 +2417,7 @@
 
         // British Pronunciation
         function speakWord(word, event) {
-            event.stopPropagation();
+            if (event) event.stopPropagation();
             
             const utterance = new SpeechSynthesisUtterance(word);
             utterance.lang = 'en-GB'; // British English
@@ -2015,9 +2437,13 @@
             speechSynthesis.speak(utterance);
             
             // Visual feedback
-            const btn = event.target.closest('.word-btn');
-            btn.classList.add('celebrate');
-            setTimeout(() => btn.classList.remove('celebrate'), 500);
+            if (event) {
+                const btn = event.target.closest('.word-btn');
+                if (btn) {
+                    btn.classList.add('celebrate');
+                    setTimeout(() => btn.classList.remove('celebrate'), 500);
+                }
+            }
             
             // Add XP
             addXP(5);
@@ -2025,19 +2451,23 @@
 
         // Show Example Sentence
         function showExample(example, event) {
-            event.stopPropagation();
+            if (event) event.stopPropagation();
             
             alert(`📝 Example:\n\n"${example}"`);
             
             // Visual feedback
-            const btn = event.target.closest('.word-btn');
-            btn.classList.add('celebrate');
-            setTimeout(() => btn.classList.remove('celebrate'), 500);
+            if (event) {
+                const btn = event.target.closest('.word-btn');
+                if (btn) {
+                    btn.classList.add('celebrate');
+                    setTimeout(() => btn.classList.remove('celebrate'), 500);
+                }
+            }
         }
 
         // Toggle Learned Status
         function toggleLearned(index, event) {
-            event.stopPropagation();
+            if (event) event.stopPropagation();
             
             const category = categories[currentCategory];
             const wasLearned = category.words[index].learned;
@@ -2052,10 +2482,14 @@
             }
             
             // Visual feedback
-            const btn = event.target.closest('.word-btn');
-            btn.innerHTML = `<i class="fas ${category.words[index].learned ? 'fa-check' : 'fa-star'}"></i>`;
-            btn.classList.add('celebrate');
-            setTimeout(() => btn.classList.remove('celebrate'), 500);
+            if (event) {
+                const btn = event.target.closest('.word-btn');
+                if (btn) {
+                    btn.innerHTML = `<i class="fas ${category.words[index].learned ? 'fa-check' : 'fa-star'}"></i>`;
+                    btn.classList.add('celebrate');
+                    setTimeout(() => btn.classList.remove('celebrate'), 500);
+                }
+            }
             
             // Re-render words to update styling
             renderWords();
@@ -2085,7 +2519,7 @@
                 addXP(50);
             }
             
-            document.getElementById('nextLevelXP').textContent = (userLevel * 100) - (totalXP % (userLevel * 100));
+            document.getElementById('nextLevelXP').textContent = Math.max(0, (userLevel * 100) - (totalXP % (userLevel * 100)));
         }
 
         // Level Up Animation
@@ -2097,7 +2531,9 @@
             createConfetti();
             
             // Show celebration message
-            alert(`🎉 Congratulations! You've reached Level ${userLevel}!`);
+            setTimeout(() => {
+                alert(`🎉 Congratulations! You've reached Level ${userLevel}!`);
+            }, 300);
             
             setTimeout(() => {
                 levelDisplay.classList.remove('level-up-animation');
@@ -2112,9 +2548,10 @@
                 confetti.style.left = Math.random() * 100 + 'vw';
                 confetti.style.top = '-20px';
                 confetti.style.background = `hsl(${Math.random() * 360}, 70%, 50%)`;
-                confetti.style.width = Math.random() * 10 + 5 + 'px';
+                confetti.style.width = Math.random() * 8 + 5 + 'px';
                 confetti.style.height = confetti.style.width;
                 confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+                confetti.style.animationDelay = Math.random() * 2 + 's';
                 document.body.appendChild(confetti);
                 
                 setTimeout(() => {
@@ -2157,12 +2594,18 @@
                 
                 // Celebration animation
                 createConfetti();
-                alert('📁 New category created successfully!');
+                setTimeout(() => {
+                    alert('📁 New category created successfully!');
+                }, 300);
             }
         });
 
         // Add Word
         function openAddWordModal() {
+            if (!currentCategory) {
+                alert('Please select a category first!');
+                return;
+            }
             document.getElementById('addWordModal').style.display = 'flex';
         }
 
@@ -2198,7 +2641,9 @@
                 
                 // Celebration
                 createConfetti();
-                alert('✅ Word added successfully!');
+                setTimeout(() => {
+                    alert('✅ Word added successfully!');
+                }, 300);
             }
         });
 
@@ -2252,7 +2697,9 @@
                 achievements.badge10 = true;
                 addXP(50);
                 createConfetti();
-                alert('⭐ Achievement Unlocked: Beginner! You mastered 10 words!');
+                setTimeout(() => {
+                    alert('⭐ Achievement Unlocked: Beginner! You mastered 10 words!');
+                }, 300);
             }
             
             if (totalLearned >= 50 && !achievements.badge50) {
@@ -2260,7 +2707,9 @@
                 achievements.badge50 = true;
                 addXP(100);
                 createConfetti();
-                alert('🌟 Achievement Unlocked: Explorer! You mastered 50 words!');
+                setTimeout(() => {
+                    alert('🌟 Achievement Unlocked: Explorer! You mastered 50 words!');
+                }, 300);
             }
             
             if (totalLearned >= 100 && !achievements.badge100) {
@@ -2268,7 +2717,9 @@
                 achievements.badge100 = true;
                 addXP(200);
                 createConfetti();
-                alert('🏆 Achievement Unlocked: Master! You mastered 100 words!');
+                setTimeout(() => {
+                    alert('🏆 Achievement Unlocked: Master! You mastered 100 words!');
+                }, 300);
             }
             
             if (totalLearned >= 250 && !achievements.badge250) {
@@ -2276,7 +2727,9 @@
                 achievements.badge250 = true;
                 addXP(500);
                 createConfetti();
-                alert('👑 Achievement Unlocked: Legend! You mastered 250 words!');
+                setTimeout(() => {
+                    alert('👑 Achievement Unlocked: Legend! You mastered 250 words!');
+                }, 300);
             }
             
             if (dayStreak >= 7 && !achievements.badge7Days) {
@@ -2284,7 +2737,9 @@
                 achievements.badge7Days = true;
                 addXP(150);
                 createConfetti();
-                alert('🔥 Achievement Unlocked: Streak Master! 7 days in a row!');
+                setTimeout(() => {
+                    alert('🔥 Achievement Unlocked: Streak Master! 7 days in a row!');
+                }, 300);
             }
         }
 
@@ -2311,17 +2766,23 @@
                 challenges.learn10.completed = true;
                 addXP(50);
                 createConfetti();
-                alert('🎯 Challenge Completed! +50 XP');
+                setTimeout(() => {
+                    alert('🎯 Challenge Completed! +50 XP');
+                }, 300);
             } else if (challengeName === 'review20' && challenges.review20.progress >= 20) {
                 challenges.review20.completed = true;
                 addXP(30);
                 createConfetti();
-                alert('🎯 Challenge Completed! +30 XP');
+                setTimeout(() => {
+                    alert('🎯 Challenge Completed! +30 XP');
+                }, 300);
             } else if (challengeName === 'perfectQuiz' && challenges.perfectQuiz.progress >= 1) {
                 challenges.perfectQuiz.completed = true;
                 addXP(100);
                 createConfetti();
-                alert('🎯 Challenge Completed! +100 XP');
+                setTimeout(() => {
+                    alert('🎯 Challenge Completed! +100 XP');
+                }, 300);
             } else {
                 alert('⏳ Keep working on this challenge!');
             }
@@ -2387,37 +2848,45 @@
             const savedStats = localStorage.getItem('englishMasterStats');
             
             if (savedData) {
-                categories = JSON.parse(savedData);
-                renderCategories();
+                try {
+                    categories = JSON.parse(savedData);
+                    renderCategories();
+                } catch (e) {
+                    console.error('Error loading ', e);
+                }
             }
             
             if (savedStats) {
-                const stats = JSON.parse(savedStats);
-                wordsPerDay = stats.wordsPerDay || 0;
-                dayStreak = stats.dayStreak || 0;
-                studyStartTime = stats.studyStartTime || Date.now();
-                totalXP = stats.totalXP || 0;
-                userLevel = stats.userLevel || 1;
-                userName = stats.userName || "Student";
-                challenges = stats.challenges || challenges;
-                achievements = stats.achievements || achievements;
-                
-                document.getElementById('userLevel').textContent = userLevel;
-                document.getElementById('userName').textContent = userName;
-                
-                const xpNeeded = userLevel * 100;
-                const xpPercentage = Math.min(100, (totalXP % xpNeeded) / xpNeeded * 100);
-                document.getElementById('xpBar').style.width = `${xpPercentage}%`;
-                document.getElementById('xpText').textContent = `${totalXP % xpNeeded} / ${xpNeeded} XP`;
-                document.getElementById('totalXP').textContent = totalXP;
-                
-                // Restore achievements
-                if (achievements.badge10) document.getElementById('badge10').classList.add('achieved');
-                if (achievements.badge50) document.getElementById('badge50').classList.add('achieved');
-                if (achievements.badge100) document.getElementById('badge100').classList.add('achieved');
-                if (achievements.badge250) document.getElementById('badge250').classList.add('achieved');
-                if (achievements.badge7Days) document.getElementById('badge7Days').classList.add('achieved');
-                if (achievements.badgePerfectQuiz) document.getElementById('badgePerfectQuiz').classList.add('achieved');
+                try {
+                    const stats = JSON.parse(savedStats);
+                    wordsPerDay = stats.wordsPerDay || 0;
+                    dayStreak = stats.dayStreak || 0;
+                    studyStartTime = stats.studyStartTime || Date.now();
+                    totalXP = stats.totalXP || 0;
+                    userLevel = stats.userLevel || 1;
+                    userName = stats.userName || "Student";
+                    challenges = stats.challenges || challenges;
+                    achievements = stats.achievements || achievements;
+                    
+                    document.getElementById('userLevel').textContent = userLevel;
+                    document.getElementById('userName').textContent = userName;
+                    
+                    const xpNeeded = userLevel * 100;
+                    const xpPercentage = Math.min(100, (totalXP % xpNeeded) / xpNeeded * 100);
+                    document.getElementById('xpBar').style.width = `${xpPercentage}%`;
+                    document.getElementById('xpText').textContent = `${totalXP % xpNeeded} / ${xpNeeded} XP`;
+                    document.getElementById('totalXP').textContent = totalXP;
+                    
+                    // Restore achievements
+                    if (achievements.badge10) document.getElementById('badge10').classList.add('achieved');
+                    if (achievements.badge50) document.getElementById('badge50').classList.add('achieved');
+                    if (achievements.badge100) document.getElementById('badge100').classList.add('achieved');
+                    if (achievements.badge250) document.getElementById('badge250').classList.add('achieved');
+                    if (achievements.badge7Days) document.getElementById('badge7Days').classList.add('achieved');
+                    if (achievements.badgePerfectQuiz) document.getElementById('badgePerfectQuiz').classList.add('achieved');
+                } catch (e) {
+                    console.error('Error loading stats:', e);
+                }
             }
         }
 
@@ -2437,12 +2906,13 @@
             if (event.target === addWordModal) closeAddWordModal();
         };
 
-        // Load voices for speech synthesis
-        if ('speechSynthesis' in window) {
-            speechSynthesis.onvoiceschanged = () => {
-                speechSynthesis.getVoices();
-            };
-        }
+        // Keyboard accessibility
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeAddCategoryModal();
+                closeAddWordModal();
+            }
+        });
     </script>
 </body>
-</html>
+                                                   </html>
