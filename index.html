@@ -3,28 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VocabMaster Pro Max 🏆</title>
+<title>VocabMaster Pro Max 🇬🇧</title>
 <style>
 :root{--primary:#6c5ce7;--secondary:#a29bfe;--success:#00b894;--danger:#ff7675;--bg:#f8f9fa;--card:#ffffff;--text:#2d3436;--shadow-light:rgba(0,0,0,0.03);--shadow-strong:rgba(0,0,0,0.08)}
 .dark{--bg:#1a1a2e;--card:#16213e;--text:#e94560;--primary:#0f3460;--secondary:#1f4068;--shadow-light:rgba(0,0,0,0.2);--shadow-strong:rgba(0,0,0,0.4)}
 *{box-sizing:border-box; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);}
 body{margin:0;font-family: 'Inter', system-ui, -apple-system; background:var(--bg);color:var(--text); direction: ltr;}
 
-/* Basic Layout & Containers */
 header{background: var(--card); padding:15px 5%; display:flex; justify-content:space-between; align-items:center; box-shadow: 0 2px 10px var(--shadow-light); position: sticky; top:0; z-index:100}
 .logo { font-size: 1.5rem; font-weight: 800; background: linear-gradient(45deg, var(--primary), #fd79a8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .container{max-width:900px;margin:auto;padding:20px}
 
-/* Stats Dashboard */
 .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap:15px; margin-bottom: 30px;}
 .stat-item { background: var(--card); padding: 15px; border-radius: 18px; text-align: center; box-shadow: 0 4px 6px var(--shadow-light); border-bottom: 4px solid var(--primary);}
 .stat-num { display: block; font-size: 1.8rem; font-weight: bold; color: var(--primary); }
 .stat-label { font-size: 0.8rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px;}
 
-/* Section Cards */
 .section-card { background: var(--card); padding: 30px; border-radius: 30px; text-align: center; margin-bottom: 40px; box-shadow: 0 20px 40px var(--shadow-light); }
 
-/* Flashcard Styles */
 .card-stack { width: 320px; height: 200px; margin: 20px auto; position: relative; cursor: pointer; perspective: 1000px; }
 .card-inner { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.6s; }
 .card-stack.flipped .card-inner { transform: rotateY(180deg); }
@@ -32,61 +28,50 @@ header{background: var(--card); padding:15px 5%; display:flex; justify-content:s
 .card-front { background: var(--primary); color: white; }
 .card-back { background: var(--success); color: white; transform: rotateY(180deg); }
 
-/* Quiz Options */
-.quiz-options { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 20px; }
-.quiz-option { padding: 15px; border-radius: 12px; border: 2px solid var(--secondary); background: var(--bg); color: var(--text); font-size: 1.1rem; cursor: pointer; text-align: center; }
+.quiz-options { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
+.quiz-option { padding: 14px; border-radius: 12px; border: 2px solid var(--secondary); background: var(--bg); color: var(--text); font-size: 1.1rem; cursor: pointer; text-align: center; }
 .quiz-option:hover { border-color: var(--primary); background: var(--card); }
 .quiz-option.correct { background: var(--success); color: white; border-color: var(--success); animation: pulse 0.5s; }
 .quiz-option.incorrect { background: var(--danger); color: white; border-color: var(--danger); animation: shake 0.5s; }
 
-/* Keyframe Animations */
 @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
 @keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-5px); } 40%, 80% { transform: translateX(5px); } }
 
-
-/* Inputs & Buttons */
 .input-grid { background: var(--card); padding: 25px; border-radius: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; box-shadow: 0 10px 20px var(--shadow-light);}
 input, select { padding: 14px; border-radius: 12px; border: 2px solid #f1f2f6; background: #f8f9fa; font-size: 1rem; color: var(--text); }
-input:focus { border-color: var(--primary); outline: none; background: var(--card); }
 .btn { padding: 12px 20px; border-radius: 12px; border: none; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; justify-content: center; }
 .btn-primary { background: var(--primary); color: white; }
-.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4); }
-.btn-secondary { background: var(--secondary); color: white; }
 .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
-.btn-outline:hover { background: var(--primary); color: white; }
 
-/* Word List Table */
 .word-list { background: var(--card); border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px var(--shadow-light); margin-bottom: 30px; }
 table { width: 100%; border-collapse: collapse; }
 td, th { padding: 18px; text-align: left; border-bottom: 1px solid #f1f2f6; }
 th { background: #fafbff; font-size: 0.85rem; color: #a29bfe; }
-.progress-mini { width: 50px; height: 6px; background: #eee; border-radius: 10px; display: inline-block; vertical-align: middle; margin-left: 5px; }
+.progress-mini { width: 50px; height: 6px; background: #eee; border-radius: 10px; display: inline-block; }
 .progress-fill { height: 100%; background: var(--success); border-radius: 10px; }
-
-@media (max-width: 600px) { .input-grid { grid-template-columns: 1fr; } .card-stack { width: 100%; } }
 </style>
 </head>
 <body>
 
 <header>
-    <div class="logo">VocabMaster Pro Max 🏆</div>
+    <div class="logo">VocabMaster 🇬🇧</div>
     <div style="display:flex; gap:10px">
-        <button class="btn btn-outline" onclick="exportData()">💾 Export</button>
-        <button class="btn btn-outline" onclick="toggleTheme()">🌓 Theme</button>
+        <button class="btn btn-outline" onclick="exportData()">💾 Save</button>
+        <button class="btn btn-outline" onclick="toggleTheme()">🌓 Mode</button>
     </div>
 </header>
 
 <div class="container">
     <div class="stats-bar">
-        <div class="stat-item"><span class="stat-num" id="stat-total">0</span><span class="stat-label">Total Words</span></div>
+        <div class="stat-item"><span class="stat-num" id="stat-total">0</span><span class="stat-label">Words</span></div>
         <div class="stat-item"><span class="stat-num" id="stat-mastered">0</span><span class="stat-label">Mastered</span></div>
         <div class="stat-item"><span class="stat-num" id="stat-streak">0</span><span class="stat-label">🔥 Streak</span></div>
-        <div class="stat-item"><span class="stat-num" id="stat-quiz-score">0/0</span><span class="stat-label">Quiz Score</span></div>
+        <div class="stat-item"><span class="stat-num" id="stat-quiz-score">0/0</span><span class="stat-label">Score</span></div>
     </div>
 
     <div class="section-card">
-        <h3>📚 Daily Review</h3>
-        <p style="opacity:0.8">Flip cards to remember words and meanings.</p>
+        <h3>🇬🇧 Pronunciation & Review</h3>
+        <p style="opacity:0.8">Tap to hear British English (en-GB)</p>
         <div class="card-stack" id="vocabCard" onclick="flipCard()">
             <div class="card-inner">
                 <div class="card-face card-front" id="q-face">Add words to start!</div>
@@ -94,45 +79,42 @@ th { background: #fafbff; font-size: 0.85rem; color: #a29bfe; }
             </div>
         </div>
         <div style="display:flex; gap:10px; justify-content:center; margin-top:20px">
-            <button class="btn btn-primary" onclick="nextCard()">➡️ Next Word</button>
-            <button class="btn" style="background:var(--success); color:white" onclick="markAsMastered()">✅ I Know This!</button>
+            <button class="btn btn-primary" onclick="nextCard()">➡️ Next</button>
+            <button class="btn" style="background:var(--success); color:white" onclick="markAsMastered()">✅ I Know It</button>
         </div>
     </div>
 
     <div class="section-card">
-        <h3>🧠 Take a Quiz!</h3>
-        <p style="opacity:0.8">Test your knowledge with multiple choice questions.</p>
+        <h3>🧠 Word Quiz</h3>
         <div id="quizArea">
-            <h4 id="quizQuestion" style="min-height: 40px;">Click 'Start Quiz' to begin!</h4>
-            <div class="quiz-options" id="quizOptions">
-                </div>
+            <h4 id="quizQuestion" style="min-height: 40px;">Ready for a quiz?</h4>
+            <div class="quiz-options" id="quizOptions"></div>
             <button class="btn btn-primary" id="startQuizBtn" onclick="startQuiz()">Start Quiz</button>
             <button class="btn btn-primary" id="nextQuizBtn" style="display:none;" onclick="nextQuizQuestion()">Next Question</button>
         </div>
     </div>
 
     <div class="input-grid">
-        <div style="grid-column: 1 / -1"><h3>➕ Add New Vocabulary</h3></div>
-        <input id="wordInp" placeholder="English Word (e.g. Eloquent)">
-        <input id="meanInp" placeholder="Arabic Meaning (e.g. فصيح)">
+        <div style="grid-column: 1 / -1"><h3>➕ Add Word</h3></div>
+        <input id="wordInp" placeholder="English Word">
+        <input id="meanInp" placeholder="Arabic Meaning">
         <select id="catInp"></select>
-        <button class="btn btn-primary" onclick="addWord()">✨ Add Word</button>
+        <button class="btn btn-primary" onclick="addWord()">✨ Add</button>
     </div>
 
     <div class="word-list">
         <div style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--shadow-light);">
-            <input id="searchInp" oninput="render()" placeholder="🔍 Search word..." style="width: 60%; margin:0">
-            <button class="btn btn-secondary" onclick="addCategoryPrompt()">+ Category</button>
+            <input id="searchInp" oninput="render()" placeholder="🔍 Search..." style="width: 60%; margin:0">
+            <button class="btn btn-outline" onclick="addCategoryPrompt()">+ Category</button>
         </div>
-        <table id="vocabTable">
-            </table>
+        <table id="vocabTable"></table>
     </div>
 </div>
 
 <script>
-let data = JSON.parse(localStorage.getItem('vocabProMaxData')) || {
+let data = JSON.parse(localStorage.getItem('vocabUltraMaxData')) || {
     words: [],
-    categories: ['General', 'Travel', 'Work', 'Academic'],
+    categories: ['General', 'Travel', 'Academic'],
     streak: 0,
     lastActiveDate: null,
     quizScore: { correct: 0, total: 0 }
@@ -140,116 +122,34 @@ let data = JSON.parse(localStorage.getItem('vocabProMaxData')) || {
 
 let currentReviewIndex = 0;
 let currentQuizWord = null;
-let quizOptionsHtml = [];
 
-// --- Core Data & UI Management ---
-function save() {
-    localStorage.setItem('vocabProMaxData', JSON.stringify(data));
-    render();
-}
-
-function render() {
-    // Stats
-    document.getElementById('stat-total').innerText = data.words.length;
-    document.getElementById('stat-mastered').innerText = data.words.filter(w => w.mastery >= 75).length; // Mastery definition changed
-    document.getElementById('stat-quiz-score').innerText = `${data.quizScore.correct}/${data.quizScore.total}`;
+// --- British Speech Logic ---
+function speak(text) {
+    const msg = new SpeechSynthesisUtterance(text);
+    // جلب قائمة الأصوات المتوفرة في الجهاز
+    const voices = window.speechSynthesis.getVoices();
+    // البحث عن صوت بريطاني
+    const britishVoice = voices.find(v => v.lang === 'en-GB' || v.lang.includes('UK'));
     
-    // Streak logic
-    const today = new Date().toDateString();
-    if(data.lastActiveDate !== today) {
-        if(data.lastActiveDate && (new Date(data.lastActiveDate).getTime() + 86400000) === new Date(today).getTime() && data.words.some(w => w.dateAdded === today)) {
-             // If last active was yesterday and new words added today
-            data.streak++;
-        } else if (!data.lastActiveDate || (new Date(data.lastActiveDate).getTime() + 86400000) !== new Date(today).getTime()) {
-            // Reset streak if not consecutive or first time
-             data.streak = 0; // Reset unless it's the very first word
-        }
-        data.lastActiveDate = today;
+    if (britishVoice) {
+        msg.voice = britishVoice;
     }
-    document.getElementById('stat-streak').innerText = data.streak;
-
-    // Category Dropdown
-    catInp.innerHTML = data.categories.map(c => `<option>${c}</option>`).join('');
-
-    // Review Card Initialization
-    if (data.words.length > 0) {
-        if (document.getElementById('q-face').innerText === "Add words to start!") {
-            document.getElementById('q-face').innerText = data.words[0].word;
-            document.getElementById('a-face').innerText = data.words[0].mean;
-        }
-    } else {
-        document.getElementById('q-face').innerText = "No words yet!";
-        document.getElementById('a-face').innerText = "Add some to get started!";
-    }
-
-    // Word List Table
-    const search = searchInp.value.toLowerCase();
-    const filtered = data.words.filter(w => 
-        w.word.toLowerCase().includes(search) || 
-        w.mean.toLowerCase().includes(search) ||
-        w.cat.toLowerCase().includes(search)
-    );
-    
-    vocabTable.innerHTML = `
-        <tr><th>Word & Meaning</th><th>Category</th><th>Mastery</th><th>Action</th></tr>
-        ${filtered.map(w => `
-            <tr>
-                <td onclick="speak('${w.word}')" style="cursor:pointer">
-                    🔊 <b>${w.word}</b><br><small style="opacity:0.7">${w.mean}</small>
-                </td>
-                <td><span style="font-size:0.7rem; background:#eee; padding:3px 8px; border-radius:5px">${w.cat}</span></td>
-                <td>
-                    <div class="progress-mini"><div class="progress-fill" style="width:${w.mastery}%"></div></div>
-                </td>
-                <td>
-                    <button onclick="deleteWord(${w.id}); playTone(200, 0.1);" style="border:none; background:none; cursor:pointer; font-size:1.1rem">🗑️</button>
-                </td>
-            </tr>
-        `).join('')}
-    `;
+    msg.lang = 'en-GB';
+    msg.rate = 0.9; // أبطأ قليلاً ليكون النطق أوضح
+    window.speechSynthesis.speak(msg);
 }
 
-// --- Word & Category Management ---
-function addWord() {
-    const w = wordInp.value.trim();
-    const m = meanInp.value.trim();
-    if(!w || !m) return;
+// التأكد من تحميل الأصوات (بعض المتصفحات تتأخر في تحميلها)
+window.speechSynthesis.onvoiceschanged = () => {
+    console.log("Speech voices loaded 🇬🇧");
+};
 
-    data.words.unshift({
-        id: Date.now(),
-        word: w,
-        mean: m,
-        cat: catInp.value,
-        mastery: 0, // 0 to 100
-        fav: false,
-        dateAdded: new Date().toDateString()
-    });
-
-    wordInp.value = ''; meanInp.value = '';
-    playTone(800, 0.05); // Success tone
-    save();
-}
-
-function addCategoryPrompt() {
-    const name = prompt("Enter new category name:");
-    if(name && !data.categories.includes(name)) {
-        data.categories.push(name);
-        playTone(700, 0.05);
-        save();
-    }
-}
-
-function deleteWord(id) {
-    if(confirm('Are you sure you want to delete this word?')) {
-        data.words = data.words.filter(x => x.id !== id);
-        save();
-    }
-}
-
-// --- Flashcard Review ---
 function flipCard() {
-    document.getElementById('vocabCard').classList.toggle('flipped');
-    playTone(440, 0.05); // Flip tone
+    const card = document.getElementById('vocabCard');
+    card.classList.toggle('flipped');
+    if(!card.classList.contains('flipped')) {
+        speak(data.words[currentReviewIndex].word);
+    }
 }
 
 function nextCard() {
@@ -259,134 +159,120 @@ function nextCard() {
     setTimeout(() => {
         document.getElementById('q-face').innerText = data.words[currentReviewIndex].word;
         document.getElementById('a-face').innerText = data.words[currentReviewIndex].mean;
+        speak(data.words[currentReviewIndex].word);
     }, 200);
-    playTone(600, 0.05); // Next card tone
 }
 
 function markAsMastered() {
     if(data.words.length === 0) return;
-    const currentWord = data.words[currentReviewIndex];
-    currentWord.mastery = Math.min(currentWord.mastery + 20, 100); // Increase mastery by 20%
-    playTone(1000, 0.05); // Mastery tone
+    data.words[currentReviewIndex].mastery = Math.min((data.words[currentReviewIndex].mastery || 0) + 25, 100);
+    playTone(1000, 0.05);
     nextCard();
     save();
 }
 
-// --- Quiz Mode ---
+// --- Quiz Logic ---
 function startQuiz() {
-    if (data.words.length < 4) {
-        alert("You need at least 4 words to start a quiz!");
-        return;
-    }
-    data.quizScore = { correct: 0, total: 0 }; // Reset score
+    if (data.words.length < 4) return alert("Add at least 4 words first!");
+    data.quizScore = { correct: 0, total: 0 };
     document.getElementById('startQuizBtn').style.display = 'none';
     document.getElementById('nextQuizBtn').style.display = 'block';
     nextQuizQuestion();
 }
 
 function nextQuizQuestion() {
-    if (data.words.length < 4) return;
-
-    // Reset styles
     const optionsDiv = document.getElementById('quizOptions');
-    optionsDiv.innerHTML = ''; // Clear previous options
-    optionsDiv.querySelectorAll('.quiz-option').forEach(opt => {
-        opt.classList.remove('correct', 'incorrect');
-        opt.onclick = null; // Remove old handlers
-    });
-
-    // Pick a random word for the question
+    optionsDiv.innerHTML = '';
     currentQuizWord = data.words[Math.floor(Math.random() * data.words.length)];
     document.getElementById('quizQuestion').innerText = `What does "${currentQuizWord.word}" mean?`;
+    speak(currentQuizWord.word);
 
-    // Generate 3 random incorrect options
-    let incorrectMeanings = data.words.filter(w => w.id !== currentQuizWord.id)
-                                    .map(w => w.mean);
-    
-    // Shuffle incorrect meanings and take 3
-    for (let i = incorrectMeanings.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [incorrectMeanings[i], incorrectMeanings[j]] = [incorrectMeanings[j], incorrectMeanings[i]];
-    }
-    const options = [currentQuizWord.mean, ...incorrectMeanings.slice(0, 3)];
+    let others = data.words.filter(w => w.id !== currentQuizWord.id).map(w => w.mean);
+    let options = [currentQuizWord.mean, ...others.sort(() => 0.5 - Math.random()).slice(0, 3)];
+    options.sort(() => 0.5 - Math.random());
 
-    // Shuffle all 4 options
-    for (let i = options.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [options[i], options[j]] = [options[j], options[i]];
-    }
-
-    quizOptionsHtml = options.map(opt => 
-        `<div class="quiz-option" onclick="checkAnswer(this, '${opt}')">${opt}</div>`
-    ).join('');
-    optionsDiv.innerHTML = quizOptionsHtml;
-
-    document.getElementById('nextQuizBtn').style.display = 'none';
-    data.quizScore.total++;
-    save(); // Update score on UI
-}
-
-function checkAnswer(selectedOptionElement, selectedMeaning) {
-    // Disable all options after selection
-    document.getElementById('quizOptions').querySelectorAll('.quiz-option').forEach(opt => {
-        opt.onclick = null;
+    options.forEach(opt => {
+        const div = document.createElement('div');
+        div.className = 'quiz-option';
+        div.innerText = opt;
+        div.onclick = () => checkAnswer(div, opt);
+        optionsDiv.appendChild(div);
     });
-
-    if (selectedMeaning === currentQuizWord.mean) {
-        selectedOptionElement.classList.add('correct');
-        playTone(1200, 0.1); // Correct tone
-        data.quizScore.correct++;
-        // Increase mastery for correct answer
-        currentQuizWord.mastery = Math.min(currentQuizWord.mastery + 15, 100);
-    } else {
-        selectedOptionElement.classList.add('incorrect');
-        playTone(300, 0.1); // Incorrect tone
-        // Find and highlight the correct answer
-        document.getElementById('quizOptions').querySelectorAll('.quiz-option').forEach(opt => {
-            if (opt.innerText === currentQuizWord.mean) {
-                opt.classList.add('correct');
-            }
-        });
-        // Decrease mastery for incorrect answer (if not 0)
-        currentQuizWord.mastery = Math.max(currentQuizWord.mastery - 10, 0);
-    }
-    document.getElementById('nextQuizBtn').style.display = 'block';
-    save(); // Update mastery and score
+    document.getElementById('nextQuizBtn').style.display = 'none';
 }
 
+function checkAnswer(el, val) {
+    document.querySelectorAll('.quiz-option').forEach(o => o.onclick = null);
+    if(val === currentQuizWord.mean) {
+        el.classList.add('correct');
+        data.quizScore.correct++;
+        currentQuizWord.mastery = Math.min((currentQuizWord.mastery || 0) + 15, 100);
+        playTone(1200, 0.1);
+    } else {
+        el.classList.add('incorrect');
+        playTone(300, 0.1);
+        document.querySelectorAll('.quiz-option').forEach(o => {
+            if(o.innerText === currentQuizWord.mean) o.classList.add('correct');
+        });
+    }
+    data.quizScore.total++;
+    document.getElementById('nextQuizBtn').style.display = 'block';
+    save();
+}
 
-// --- Utility Functions ---
+// --- General Functions ---
+function addWord() {
+    const w = wordInp.value.trim();
+    const m = meanInp.value.trim();
+    if(!w || !m) return;
+    data.words.unshift({ id: Date.now(), word: w, mean: m, cat: catInp.value, mastery: 0, dateAdded: new Date().toDateString() });
+    wordInp.value = ''; meanInp.value = '';
+    save();
+}
+
+function save() {
+    localStorage.setItem('vocabUltraMaxData', JSON.stringify(data));
+    render();
+}
+
 function playTone(freq, dur) {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const ctx = new AudioContext();
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
     osc.connect(gain); gain.connect(ctx.destination);
     osc.frequency.value = freq;
-    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+    gain.gain.setValueAtTime(0.05, ctx.currentTime);
     osc.start(); osc.stop(ctx.currentTime + dur);
 }
 
-function speak(text) {
-    const msg = new SpeechSynthesisUtterance(text);
-    msg.lang = 'en-US';
-    speechSynthesis.speak(msg);
+function render() {
+    document.getElementById('stat-total').innerText = data.words.length;
+    document.getElementById('stat-mastered').innerText = data.words.filter(w => w.mastery >= 75).length;
+    document.getElementById('stat-quiz-score').innerText = `${data.quizScore.correct}/${data.quizScore.total}`;
+    
+    catInp.innerHTML = data.categories.map(c => `<option>${c}</option>`).join('');
+    
+    const search = searchInp.value.toLowerCase();
+    const filtered = data.words.filter(w => w.word.toLowerCase().includes(search));
+    
+    vocabTable.innerHTML = `<tr><th>Word</th><th>Category</th><th>Progress</th></tr>` + 
+    filtered.map(w => `
+        <tr>
+            <td onclick="speak('${w.word}')" style="cursor:pointer">🔊 <b>${w.word}</b><br><small>${w.mean}</small></td>
+            <td><span style="font-size:0.7rem; background:#eee; padding:3px 8px; border-radius:5px">${w.cat}</span></td>
+            <td><div class="progress-mini"><div class="progress-fill" style="width:${w.mastery}%"></div></div></td>
+        </tr>
+    `).join('');
 }
 
-function toggleTheme() {
-    document.body.classList.toggle('dark');
+function toggleTheme() { document.body.classList.toggle('dark'); }
+function addCategoryPrompt() {
+    const n = prompt("New Category:");
+    if(n) { data.categories.push(n); save(); }
 }
 
-function exportData() {
-    const blob = new Blob([JSON.stringify(data)], {type:'application/json'});
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'vocab_backup.json';
-    a.click();
-}
-
-// Initial Render
 render();
 </script>
-
 </body>
 </html>
+
