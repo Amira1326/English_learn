@@ -15,9 +15,9 @@ header{background: var(--card); padding:15px 20px; display:flex; justify-content
 .container{max-width: 800px; margin: auto; padding: 20px}
 
 /* Tabs System */
-.tabs{display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px;}
-.tab-btn{padding: 10px 20px; background: var(--card); border-radius: 12px; cursor: pointer; border: 2px solid transparent; font-weight: bold; white-space: nowrap;}
-.tab-btn.active{border-color: var(--primary); color: var(--primary);}
+.tabs{display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; -webkit-overflow-scrolling: touch;}
+.tab-btn{padding: 10px 20px; background: var(--card); border-radius: 12px; cursor: pointer; border: 2px solid transparent; font-weight: bold; white-space: nowrap; flex-shrink: 0;}
+.tab-btn.active{border-color: var(--primary); color: var(--primary); box-shadow: 0 4px 10px rgba(108, 92, 231, 0.2);}
 
 .section{display: none;}
 .section.active{display: block; animation: fadeIn 0.4s ease;}
@@ -25,7 +25,7 @@ header{background: var(--card); padding:15px 20px; display:flex; justify-content
 
 .main-card { background: var(--card); padding: 25px; border-radius: 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.05); margin-bottom: 25px; text-align: center;}
 
-/* Flashcard */
+/* Flashcard Styles */
 .flip-container { width: 100%; max-width: 320px; height: 200px; margin: 20px auto; perspective: 1000px; cursor: pointer;}
 .flipper { position: relative; width: 100%; height: 100%; transition: 0.6s; transform-style: preserve-3d; }
 .flipper.flipped { transform: rotateY(180deg); }
@@ -33,34 +33,46 @@ header{background: var(--card); padding:15px 20px; display:flex; justify-content
 .front { background: var(--primary); }
 .back { background: var(--success); transform: rotateY(180deg); }
 
-/* Quiz */
+/* Quiz Styles */
 .quiz-option { padding: 15px; background: var(--bg); border: 2px solid #eee; border-radius: 12px; margin-top: 10px; cursor: pointer; font-weight: 500;}
+.quiz-option:hover { border-color: var(--primary); }
 .quiz-option.correct { background: var(--success) !important; color: white; border-color: var(--success); }
 .quiz-option.wrong { background: var(--danger) !important; color: white; border-color: var(--danger); }
 
-/* Inputs & Tables */
+/* Inputs & UI Elements */
 .input-grid { display: grid; grid-template-columns: 1fr; gap: 10px; text-align: left;}
 @media(min-width: 600px) { .input-grid { grid-template-columns: 1fr 1fr; } .full { grid-column: 1 / -1; } }
-input, select { padding: 12px; border-radius: 10px; border: 1px solid #ddd; background: var(--bg); color: var(--text); }
+input, select { padding: 12px; border-radius: 10px; border: 1px solid #ddd; background: var(--bg); color: var(--text); font-size: 1rem; }
 .btn { border: none; padding: 12px 24px; border-radius: 12px; font-weight: bold; cursor: pointer; background: var(--primary); color: white; }
-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
-.badge { background: #eee; padding: 4px 8px; border-radius: 6px; font-size: 0.7rem; }
+.btn-s { background: #eee; color: #333; }
+
+/* Filter Bar */
+.filter-bar { display: flex; gap: 10px; margin-bottom: 15px; align-items: center; flex-wrap: wrap; }
+
+/* Table */
+.scroll-x { overflow-x: auto; border-radius: 15px; border: 1px solid #eee; }
+table { width: 100%; border-collapse: collapse; min-width: 500px; }
+th, td { padding: 14px; text-align: left; border-bottom: 1px solid #eee; }
+th { background: #fbfbfb; color: #888; font-size: 0.8rem; text-transform: uppercase; }
+.badge { background: var(--secondary); color: white; padding: 4px 8px; border-radius: 6px; font-size: 0.7rem; }
 </style>
 </head>
 <body>
 
 <header>
     <div style="font-weight: 800; font-size: 1.4rem; color: var(--primary);">VocabMaster 🇬🇧</div>
-    <button onclick="document.body.classList.toggle('dark')" style="background:none; border:none; cursor:pointer; font-size:1.2rem">🌓</button>
+    <div style="display:flex; gap:10px">
+        <button onclick="exportData()" style="background:none; border:none; cursor:pointer;">💾</button>
+        <button onclick="document.body.classList.toggle('dark')" style="background:none; border:none; cursor:pointer; font-size:1.2rem">🌓</button>
+    </div>
 </header>
 
 <div class="container">
-    <div class="tabs">
-        <div class="tab-btn active" onclick="showTab('learn')">📖 Learn</div>
-        <div class="tab-btn" onclick="showTab('quiz')">🧠 Quiz</div>
-        <div class="tab-btn" onclick="showTab('manage')">➕ Add Word</div>
-        <div class="tab-btn" onclick="showTab('list')">📚 Dictionary</div>
+    <div class="tabs" id="tabBar">
+        <div class="tab-btn active" onclick="showTab(event, 'learn')">📖 Learn</div>
+        <div class="tab-btn" onclick="showTab(event, 'quiz')">🧠 Quiz</div>
+        <div class="tab-btn" onclick="showTab(event, 'manage')">➕ Add Word</div>
+        <div class="tab-btn" onclick="showTab(event, 'list')">📚 Dictionary</div>
     </div>
 
     <div id="learn" class="section active">
@@ -68,21 +80,22 @@ th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
             <h3>Flashcards</h3>
             <div class="flip-container" onclick="this.querySelector('.flipper').classList.toggle('flipped')">
                 <div class="flipper" id="flipper">
-                    <div class="front" id="flash-front">No Words Added</div>
+                    <div class="front" id="flash-front">Empty List</div>
                     <div class="back" id="flash-back">Add words to start</div>
                 </div>
             </div>
             <div style="display:flex; gap:10px; justify-content:center">
-                <button class="btn" onclick="nextCard()">Next Word ➡️</button>
-                <button class="btn" style="background:var(--success)" onclick="speakFlash()">🔊 Listen</button>
+                <button class="btn btn-s" onclick="prevCard()">⬅️ Prev</button>
+                <button class="btn btn-s" onclick="speakFlash()">🔊 Listen</button>
+                <button class="btn" onclick="nextCard()">Next ➡️</button>
             </div>
         </div>
     </div>
 
     <div id="quiz" class="section">
         <div class="main-card">
-            <h3>Word Quiz</h3>
-            <p id="quiz-q">Press Start to Begin</p>
+            <h3>Vocabulary Quiz</h3>
+            <p id="quiz-q" style="font-size: 1.2rem; font-weight: bold;">Add words to unlock the quiz!</p>
             <div id="quiz-options"></div>
             <button class="btn" id="quiz-start" onclick="startQuiz()" style="margin-top:15px">Start Quiz</button>
         </div>
@@ -90,54 +103,69 @@ th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
 
     <div id="manage" class="section">
         <div class="main-card">
-            <h3>Add New Word</h3>
+            <h3 style="text-align: left;">➕ Add New Word</h3>
             <div class="input-grid">
                 <input id="wIn" placeholder="English Word">
-                <input id="mIn" placeholder="Meaning">
+                <input id="mIn" placeholder="Meaning / Translation">
                 <select id="cIn" class="full"></select>
-                <button class="btn full" onclick="saveWord()">Save Word</button>
+                <button class="btn full" onclick="saveWord()">Save to Dictionary</button>
             </div>
-            <hr style="margin:20px 0; opacity:0.1">
-            <h3>Manage Categories</h3>
+            <hr style="margin:30px 0; opacity:0.1">
+            <h3 style="text-align: left;">📁 Create New Category</h3>
             <div class="input-grid" style="grid-template-columns: 1fr auto;">
-                <input id="newCat" placeholder="New category name">
-                <button class="btn" onclick="addCat()">Add</button>
+                <input id="newCat" placeholder="Category Name (e.g. Work)">
+                <button class="btn" onclick="addCat()">Add Category</button>
             </div>
         </div>
     </div>
 
     <div id="list" class="section">
         <div class="main-card">
-            <div style="display:flex; gap:10px; margin-bottom:15px">
-                <input id="search" oninput="render()" placeholder="Search..." style="flex:1">
+            <h3 style="text-align: left;">Your Dictionary</h3>
+            <div class="filter-bar">
+                <select id="filterCat" onchange="render()" style="flex: 1;">
+                    <option value="All">All Categories</option>
+                </select>
+                <input id="search" oninput="render()" placeholder="Search word..." style="flex: 2;">
             </div>
-            <div style="overflow-x: auto;">
-                <table id="vocabTable"></table>
+            <div class="scroll-x">
+                <table id="vocabTable">
+                    <thead>
+                        <tr>
+                            <th>Word</th>
+                            <th>Meaning</th>
+                            <th>Category</th>
+                            <th>Del</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-let data = JSON.parse(localStorage.getItem('vocabFinalData')) || {
+let data = JSON.parse(localStorage.getItem('vocabFilterData')) || {
     words: [],
     categories: ['General', 'Travel', 'Work']
 };
 
 let curIdx = 0;
 
-// --- Core Logic ---
-function showTab(tabId) {
+// --- Tab Navigation ---
+function showTab(event, tabId) {
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.getElementById(tabId).classList.add('active');
-    event.target.classList.add('active');
+    event.currentTarget.classList.add('active');
     if(tabId === 'learn') updateFlashcard();
 }
 
+// --- Data Management ---
 function saveWord() {
     const w = wIn.value.trim(), m = mIn.value.trim(), c = cIn.value;
-    if(!w || !m) return alert("Fill all fields");
+    if(!w || !m) return alert("Please fill in both the word and the meaning.");
     data.words.unshift({ id: Date.now(), w, m, c });
     wIn.value = ''; mIn.value = '';
     save();
@@ -152,20 +180,29 @@ function addCat() {
     }
 }
 
+function deleteWord(id) {
+    if(confirm("Delete this word?")) {
+        data.words = data.words.filter(w => w.id !== id);
+        save();
+    }
+}
+
 function save() {
-    localStorage.setItem('vocabFinalData', JSON.stringify(data));
+    localStorage.setItem('vocabFilterData', JSON.stringify(data));
     render();
 }
 
-// --- Flashcard & Audio ---
+// --- British Pronunciation ---
 function speak(txt) {
     window.speechSynthesis.cancel();
     const msg = new SpeechSynthesisUtterance(txt);
+    msg.voice = window.speechSynthesis.getVoices().find(v => v.lang === 'en-GB' || v.lang.includes('GB')) || null;
     msg.lang = 'en-GB';
     msg.rate = 0.85;
     window.speechSynthesis.speak(msg);
 }
 
+// --- Flashcards ---
 function updateFlashcard() {
     if(data.words.length === 0) return;
     document.getElementById('flipper').classList.remove('flipped');
@@ -180,11 +217,18 @@ function nextCard() {
     setTimeout(speakFlash, 300);
 }
 
+function prevCard() {
+    if(data.words.length === 0) return;
+    curIdx = (curIdx - 1 + data.words.length) % data.words.length;
+    updateFlashcard();
+    setTimeout(speakFlash, 300);
+}
+
 function speakFlash() { if(data.words[curIdx]) speak(data.words[curIdx].w); }
 
 // --- Quiz Logic ---
 function startQuiz() {
-    if(data.words.length < 4) return alert("Add at least 4 words!");
+    if(data.words.length < 4) return alert("You need at least 4 words to start a quiz!");
     document.getElementById('quiz-start').style.display = 'none';
     loadQuestion();
 }
@@ -193,7 +237,7 @@ function loadQuestion() {
     const optionsDiv = document.getElementById('quiz-options');
     optionsDiv.innerHTML = '';
     const qWord = data.words[Math.floor(Math.random() * data.words.length)];
-    document.getElementById('quiz-q').innerText = `What is the meaning of "${qWord.w}"?`;
+    document.getElementById('quiz-q').innerText = `What does "${qWord.w}" mean?`;
     speak(qWord.w);
 
     let choices = [qWord.m];
@@ -209,31 +253,58 @@ function loadQuestion() {
         d.innerText = c;
         d.onclick = () => {
             document.querySelectorAll('.quiz-option').forEach(el => el.onclick = null);
-            if(c === qWord.m) d.classList.add('correct');
-            else d.classList.add('wrong');
-            setTimeout(loadQuestion, 1500);
+            if(c === qWord.m) {
+                d.classList.add('correct');
+                setTimeout(loadQuestion, 1200);
+            } else {
+                d.classList.add('wrong');
+                setTimeout(loadQuestion, 1500);
+            }
         };
         optionsDiv.appendChild(d);
     });
 }
 
+// --- Render Page ---
 function render() {
-    cIn.innerHTML = data.categories.map(c => `<option>${c}</option>`).join('');
-    const s = search.value.toLowerCase();
-    const filtered = data.words.filter(w => w.w.toLowerCase().includes(s));
+    // Dropdowns
+    const catOptions = data.categories.map(c => `<option value="${c}">${c}</option>`).join('');
+    cIn.innerHTML = catOptions;
+    filterCat.innerHTML = `<option value="All">All Categories</option>` + catOptions;
+
+    // Filter Logic
+    const activeCat = filterCat.value;
+    const searchTerm = search.value.toLowerCase();
     
-    vocabTable.innerHTML = `<tr><th>Word</th><th>Meaning</th><th>Cat</th></tr>` +
-    filtered.map(w => `
+    let filtered = data.words;
+    if(activeCat !== 'All') {
+        filtered = filtered.filter(w => w.c === activeCat);
+    }
+    filtered = filtered.filter(w => w.w.toLowerCase().includes(searchTerm) || w.m.toLowerCase().includes(searchTerm));
+
+    // Table Content
+    tableBody.innerHTML = filtered.map(w => `
         <tr>
             <td onclick="speak('${w.w}')" style="cursor:pointer">🔊 <b>${w.w}</b></td>
             <td>${w.m}</td>
             <td><span class="badge">${w.c}</span></td>
+            <td><button onclick="deleteWord(${w.id})" style="background:none; border:none; cursor:pointer;">🗑️</button></td>
         </tr>
     `).join('');
-    
+
     if(data.words.length > 0) updateFlashcard();
 }
 
+function exportData() {
+    const blob = new Blob([JSON.stringify(data)], {type:'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'my_vocabulary.json';
+    a.click();
+}
+
+// Initial Load
+window.speechSynthesis.onvoiceschanged = render;
 render();
 </script>
 </body>
