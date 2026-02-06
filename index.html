@@ -2,249 +2,197 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>VocabMaster Pro 🇬🇧</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VocabMaster Categories 🗂️</title>
 <style>
-:root{--primary:#6c5ce7;--secondary:#a29bfe;--success:#00b894;--danger:#ff7675;--bg:#f0f2f5;--card:#ffffff;--text:#2d3436}
+:root{--primary:#6c5ce7;--secondary:#fab1a0;--success:#00b894;--bg:#f0f2f5;--card:#ffffff;--text:#2d3436}
 .dark{--bg:#1a1a2e;--card:#16213e;--text:#f8f9fa;--primary:#74b9ff}
 
-*{box-sizing:border-box; -webkit-tap-highlight-color:transparent; transition: background 0.3s, color 0.3s}
-body{margin:0; font-family: system-ui, -apple-system, sans-serif; background:var(--bg); color:var(--text); direction: ltr; line-height: 1.6}
+*{box-sizing:border-box; transition: 0.3s}
+body{margin:0; font-family: system-ui, sans-serif; background:var(--bg); color:var(--text); direction: ltr;}
 
-/* Header */
-header{background: var(--card); padding:10px 15px; display:flex; justify-content:space-between; align-items:center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); position: sticky; top:0; z-index:1000}
-.logo { font-size: 1.2rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 5px; }
+header{background: var(--card); padding:10px 15px; display:flex; justify-content:space-between; align-items:center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); position: sticky; top:0; z-index:1000}
+.container{max-width: 800px; margin: auto; padding: 15px}
 
-.container{width: 100%; max-width: 800px; margin: auto; padding: 15px}
+.main-card { background: var(--card); padding: 20px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
+h3{margin-top:0; border-left: 4px solid var(--primary); padding-left: 10px; text-align: left;}
 
-/* Grid System */
-.stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
-@media(min-width: 600px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
+/* Categories Chips */
+.cat-container { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0; justify-content: flex-start; }
+.cat-chip { background: var(--bg); padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; cursor: pointer; border: 1px solid transparent; display: flex; align-items: center; gap: 5px;}
+.cat-chip.active { background: var(--primary); color: white; }
+.cat-chip .del-cat { color: var(--danger); font-weight: bold; margin-left: 5px; cursor: pointer; }
 
-.stat-card { background: var(--card); padding: 15px; border-radius: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
-.stat-card b { display: block; font-size: 1.5rem; color: var(--primary); }
-.stat-card span { font-size: 0.7rem; opacity: 0.7; text-transform: uppercase; }
+/* Form Styles */
+.input-group { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 15px; }
+@media(min-width: 500px) { .input-group { grid-template-columns: 1fr 1fr; } .full { grid-column: 1 / -1; } }
+input, select { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; background: var(--bg); color: var(--text); }
 
-/* Main Section Card */
-.main-card { background: var(--card); padding: 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 20px; text-align: center; }
-
-/* Flashcard Area */
-.flip-container { width: 100%; max-width: 300px; height: 180px; margin: 20px auto; perspective: 1000px; }
-.flipper { position: relative; width: 100%; height: 100%; transition: 0.6s; transform-style: preserve-3d; cursor: pointer; }
-.flipper.flipped { transform: rotateY(180deg); }
-.front, .back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 20px; display: flex; align-items: center; justify-content: center; padding: 15px; font-size: 1.4rem; font-weight: bold; color: white; box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
-.front { background: var(--primary); }
-.back { background: var(--success); transform: rotateY(180deg); }
-
-/* Buttons */
-.btn-group { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-.btn { border: none; padding: 12px 20px; border-radius: 12px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; }
+.btn { border: none; padding: 12px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; }
 .btn-p { background: var(--primary); color: white; }
-.btn-s { background: var(--bg); color: var(--text); border: 1px solid #ddd; }
+.btn-s { background: var(--secondary); color: white; margin-top: 10px; }
 
-/* Input Form */
-.input-form { display: grid; grid-template-columns: 1fr; gap: 10px; text-align: left; }
-@media(min-width: 600px) { .input-form { grid-template-columns: 1fr 1fr; } .full { grid-column: 1 / -1; } }
-input, select { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #eee; background: var(--bg); color: var(--text); outline: none; }
-
-/* Quiz Styles */
-.option-list { display: grid; gap: 10px; margin-top: 15px; }
-.option { padding: 12px; background: var(--bg); border: 2px solid transparent; border-radius: 10px; cursor: pointer; font-weight: 500; }
-.option.correct { background: var(--success) !important; color: white; }
-.option.wrong { background: var(--danger) !important; color: white; }
-
-/* Table Section */
-.scroll-x { overflow-x: auto; margin-top: 10px; border-radius: 10px; }
-table { width: 100%; border-collapse: collapse; background: var(--card); min-width: 400px; }
-th, td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 0.9rem; }
-th { background: rgba(108, 92, 231, 0.1); color: var(--primary); }
-
-.mastery-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+/* Table */
+.scroll-table { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; margin-top: 15px; min-width: 450px; }
+th, td { padding: 12px; text-align: left; border-bottom: 1px solid rgba(0,0,0,0.05); }
+.badge { background: rgba(108, 92, 231, 0.1); color: var(--primary); padding: 3px 8px; border-radius: 5px; font-size: 0.75rem; }
 </style>
 </head>
 <body>
 
 <header>
-    <div class="logo">🇬🇧 VocabMaster</div>
-    <div style="display:flex; gap:8px">
-        <button class="btn btn-s" onclick="exportData()" style="padding:8px">💾</button>
-        <button class="btn btn-s" onclick="toggleTheme()" style="padding:8px">🌓</button>
-    </div>
+    <div style="font-weight: bold; color: var(--primary)">VocabManager 🗂️</div>
+    <button onclick="document.body.classList.toggle('dark')" style="background:none; border:none; cursor:pointer; font-size:1.2rem">🌓</button>
 </header>
 
 <div class="container">
-    <div class="stats-grid">
-        <div class="stat-card"><b id="s-total">0</b><span>Words</span></div>
-        <div class="stat-card"><b id="s-master">0</b><span>Mastery</span></div>
-        <div class="stat-card"><b id="s-streak">0</b><span>Streak</span></div>
-        <div class="stat-card"><b id="s-score">0/0</b><span>Quiz</span></div>
-    </div>
-
+    
     <div class="main-card">
-        <h3 style="margin:0">Review & Listen</h3>
-        <div class="flip-container" onclick="flip()">
-            <div class="flipper" id="flipper">
-                <div class="front" id="q-txt">Hello</div>
-                <div class="back" id="a-txt">مرحباً</div>
+        <h3>📂 فئات الكلمات</h3>
+        <p style="font-size: 0.8rem; opacity: 0.7; text-align: left;">اضغط على الفئة للفلترة، أو أضف فئة جديدة:</p>
+        
+        <div class="cat-container" id="categoryChips">
             </div>
-        </div>
-        <div class="btn-group">
-            <button class="btn btn-p" onclick="nextWord()">Next ➡️</button>
-            <button class="btn btn-s" onclick="speakCurrent()">🔊 Listen</button>
+
+        <div class="input-group" style="grid-template-columns: 1fr auto; margin-top: 15px;">
+            <input id="newCatInput" placeholder="اسم الفئة الجديدة (مثلاً: طبخ، برمجة)">
+            <button class="btn btn-p" onclick="addNewCategory()" style="width: auto;">إضافة فئة</button>
         </div>
     </div>
 
     <div class="main-card">
-        <h3>Quick Quiz 🧠</h3>
-        <div id="quiz-box">
-            <p id="q-prompt">Add 4 words to unlock quizzes!</p>
-            <div class="option-list" id="options"></div>
-            <button class="btn btn-p" id="start-btn" onclick="startQuiz()" style="margin:10px auto">Start Test</button>
+        <h3>➕ إضافة كلمة جديدة</h3>
+        <div class="input-group">
+            <input id="wordIn" placeholder="الكلمة الإنجليزية">
+            <input id="meanIn" placeholder="المعنى بالعربي">
+            <select id="catSelect" class="full"></select>
+            <button class="btn btn-p full" onclick="saveWord()">حفظ الكلمة في المكتبة</button>
         </div>
     </div>
 
     <div class="main-card">
-        <h3 style="text-align: left;">➕ New Word</h3>
-        <div class="input-form">
-            <input id="wIn" placeholder="English Word">
-            <input id="mIn" placeholder="Meaning">
-            <select id="cIn" class="full"></select>
-            <button class="btn btn-p full" onclick="addWord()">Add to My Library</button>
+        <h3 id="listTitle">كل الكلمات</h3>
+        <input id="searchBar" oninput="render()" placeholder="🔍 ابحث في كلماتك..." style="margin-bottom: 10px;">
+        
+        <div class="scroll-table">
+            <table id="vocabTable">
+                <thead>
+                    <tr>
+                        <th>الكلمة</th>
+                        <th>المعنى</th>
+                        <th>الفئة</th>
+                        <th>حذف</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
         </div>
     </div>
 
-    <div class="main-card">
-        <input id="search" oninput="render()" placeholder="🔍 Search words..." style="margin-bottom:10px">
-        <div class="scroll-x">
-            <table id="vocabTable"></table>
-        </div>
-    </div>
 </div>
 
 <script>
-let data = JSON.parse(localStorage.getItem('vocabFlexData')) || {
-    words: [], categories: ['General', 'Travel', 'Work'], streak: 0, score: {c:0, t:0}
+// البيانات الأساسية
+let vocabData = JSON.parse(localStorage.getItem('vocabCatData')) || {
+    words: [],
+    categories: ['عام', 'عمل', 'سفر']
 };
 
-// --- British Voice Setup ---
-function speak(text) {
-    window.speechSynthesis.cancel();
-    const msg = new SpeechSynthesisUtterance(text);
-    const voices = window.speechSynthesis.getVoices();
-    msg.voice = voices.find(v => v.lang === 'en-GB' || v.lang.includes('UK')) || voices[0];
-    msg.lang = 'en-GB';
-    msg.rate = 0.85;
-    window.speechSynthesis.speak(msg);
-}
+let activeFilter = 'الكل';
 
-// Support for iOS/Mobile
-window.speechSynthesis.onvoiceschanged = () => console.log("Voices ready");
-
-let curIdx = 0;
-function flip() { 
-    document.getElementById('flipper').classList.toggle('flipped');
-    if(!document.getElementById('flipper').classList.contains('flipped')) speakCurrent();
-}
-
-function speakCurrent() { if(data.words[curIdx]) speak(data.words[curIdx].w); }
-
-function nextWord() {
-    if(!data.words.length) return;
-    curIdx = (curIdx + 1) % data.words.length;
-    document.getElementById('flipper').classList.remove('flipped');
-    setTimeout(() => {
-        document.getElementById('q-txt').innerText = data.words[curIdx].w;
-        document.getElementById('a-txt').innerText = data.words[curIdx].m;
-        speakCurrent();
-    }, 200);
-}
-
-// --- Quiz System ---
-function startQuiz() {
-    if(data.words.length < 4) return alert("Add at least 4 words!");
-    document.getElementById('start-btn').style.display = 'none';
-    loadQuestion();
-}
-
-function loadQuestion() {
-    const optionsDiv = document.getElementById('options');
-    optionsDiv.innerHTML = '';
-    const qWord = data.words[Math.floor(Math.random() * data.words.length)];
-    document.getElementById('q-prompt').innerText = `What is the meaning of "${qWord.w}"?`;
-    speak(qWord.w);
-
-    let choices = [qWord.m];
-    while(choices.length < 4) {
-        let r = data.words[Math.floor(Math.random() * data.words.length)].m;
-        if(!choices.includes(r)) choices.push(r);
-    }
-    choices.sort(() => Math.random() - 0.5);
-
-    choices.forEach(c => {
-        const d = document.createElement('div');
-        d.className = 'option';
-        d.innerText = c;
-        d.onclick = () => {
-            document.querySelectorAll('.option').forEach(el => el.onclick = null);
-            data.score.t++;
-            if(c === qWord.m) {
-                d.classList.add('correct');
-                data.score.c++;
-            } else {
-                d.classList.add('wrong');
-            }
-            save();
-            setTimeout(loadQuestion, 1200);
-        };
-        optionsDiv.appendChild(d);
-    });
-}
-
-// --- Core Actions ---
-function addWord() {
-    const w = wIn.value.trim(), m = mIn.value.trim();
-    if(!w || !m) return;
-    data.words.unshift({ id:Date.now(), w, m, c:cIn.value, mastery:0 });
-    wIn.value = ''; mIn.value = '';
-    save();
-}
-
-function save() {
-    localStorage.setItem('vocabFlexData', JSON.stringify(data));
+function saveData() {
+    localStorage.setItem('vocabCatData', JSON.stringify(vocabData));
     render();
 }
 
-function render() {
-    document.getElementById('s-total').innerText = data.words.length;
-    document.getElementById('s-master').innerText = data.words.filter(w => w.mastery > 50).length;
-    document.getElementById('s-score').innerText = `${data.score.c}/${data.score.t}`;
-    
-    cIn.innerHTML = data.categories.map(c => `<option>${c}</option>`).join('');
-    
-    const term = search.value.toLowerCase();
-    const filtered = data.words.filter(w => w.w.toLowerCase().includes(term));
-    
-    vocabTable.innerHTML = `<tr><th>Word</th><th>Meaning</th><th>Cat</th></tr>` + 
-    filtered.map(w => `
-        <tr>
-            <td onclick="speak('${w.w}')" style="cursor:pointer"><b>${w.w}</b> 🔊</td>
-            <td>${w.m}</td>
-            <td><small>${w.c}</small></td>
-        </tr>
-    `).join('');
-
-    if(data.words.length && document.getElementById('q-txt').innerText === "Hello") {
-        document.getElementById('q-txt').innerText = data.words[0].w;
-        document.getElementById('a-txt').innerText = data.words[0].m;
+// إضافة فئة جديدة
+function addNewCategory() {
+    const val = newCatInput.value.trim();
+    if(val && !vocabData.categories.includes(val)) {
+        vocabData.categories.push(val);
+        newCatInput.value = '';
+        saveData();
     }
 }
 
-function toggleTheme() { document.body.classList.toggle('dark'); }
-function exportData() {
-    const b = new Blob([JSON.stringify(data)], {type:'application/json'});
-    const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'vocab.json'; a.click();
+// حذف فئة
+function deleteCategory(catName, e) {
+    e.stopPropagation(); // منع تفعيل الفلترة عند الضغط على حذف
+    if(confirm(`هل تريد حذف فئة "${catName}"؟ (لن تحذف الكلمات المرتبطة بها)`)) {
+        vocabData.categories = vocabData.categories.filter(c => c !== catName);
+        if(activeFilter === catName) activeFilter = 'الكل';
+        saveData();
+    }
 }
 
+// حفظ كلمة
+function saveWord() {
+    const w = wordIn.value.trim();
+    const m = meanIn.value.trim();
+    const c = catSelect.value;
+    if(!w || !m) return alert("الرجاء تعبئة الحقول");
+
+    vocabData.words.unshift({ id: Date.now(), w, m, c });
+    wordIn.value = ''; meanIn.value = '';
+    saveData();
+}
+
+function deleteWord(id) {
+    vocabData.words = vocabData.words.filter(w => w.id !== id);
+    saveData();
+}
+
+// النطق البريطاني
+function speak(txt) {
+    window.speechSynthesis.cancel();
+    const msg = new SpeechSynthesisUtterance(txt);
+    msg.lang = 'en-GB';
+    msg.rate = 0.9;
+    window.speechSynthesis.speak(msg);
+}
+
+// عرض البيانات
+function render() {
+    // 1. تحديث قائمة الفئات (Chips)
+    const chipsHtml = `<span class="cat-chip ${activeFilter === 'الكل' ? 'active' : ''}" onclick="filterBy('الكل')">الكل</span>` +
+        vocabData.categories.map(c => `
+            <span class="cat-chip ${activeFilter === c ? 'active' : ''}" onclick="filterBy('${c}')">
+                ${c} <span class="del-cat" onclick="deleteCategory('${c}', event)">×</span>
+            </span>
+        `).join('');
+    categoryChips.innerHTML = chipsHtml;
+
+    // 2. تحديث قائمة الاختيار (Select)
+    catSelect.innerHTML = vocabData.categories.map(c => `<option value="${c}">${c}</option>`).join('');
+
+    // 3. فلترة الكلمات
+    let filtered = vocabData.words;
+    if(activeFilter !== 'الكل') {
+        filtered = filtered.filter(w => w.c === activeFilter);
+    }
+    const search = searchBar.value.toLowerCase();
+    filtered = filtered.filter(w => w.w.toLowerCase().includes(search) || w.m.includes(search));
+
+    // 4. بناء الجدول
+    tableBody.innerHTML = filtered.map(w => `
+        <tr>
+            <td onclick="speak('${w.w}')" style="cursor:pointer"><b>${w.w}</b> 🔊</td>
+            <td>${w.m}</td>
+            <td><span class="badge">${w.c}</span></td>
+            <td onclick="deleteWord(${w.id})" style="cursor:pointer; color:red">🗑️</td>
+        </tr>
+    `).join('');
+
+    listTitle.innerText = activeFilter === 'الكل' ? 'كل الكلمات' : `كلمات فئة: ${activeFilter}`;
+}
+
+function filterBy(cat) {
+    activeFilter = cat;
+    render();
+}
+
+// التشغيل لأول مرة
 render();
 </script>
 </body>
