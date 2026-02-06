@@ -1,119 +1,119 @@
 <!DOCTYPE html><html>
 <head>
 <meta charset="UTF-8">
-<title>Vocabulary Hub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vocabulary Hub ✨</title>
 <style>
-body{font-family:Arial;margin:0;background:#f2f6ff}
-header{background:#2b6ef2;color:white;padding:18px;font-size:26px}
-.container{max-width:1100px;margin:auto;padding:20px}
-.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px}
-.card{background:white;border-radius:18px;padding:18px;box-shadow:0 8px 20px rgba(0,0,0,.07)}
-h2{margin-top:0}
-input,select,textarea{width:100%;padding:10px;margin:6px 0;border-radius:10px;border:1px solid #ddd}
-button{background:#2b6ef2;color:white;border:none;padding:10px 14px;border-radius:12px;cursor:pointer}
+:root{--blue:#2b6ef2;--bg:#f4f7ff;--card:#fff}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui;background:var(--bg)}
+header{background:var(--blue);color:#fff;padding:18px;font-size:24px;text-align:center}
+.container{max-width:1100px;margin:auto;padding:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.card{background:var(--card);border-radius:18px;padding:16px;box-shadow:0 10px 25px rgba(0,0,0,.08)}
+input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #ddd;margin-top:6px}
+button{background:var(--blue);color:#fff;border:none;padding:10px 14px;border-radius:12px;cursor:pointer;margin-top:8px}
 table{width:100%;border-collapse:collapse}
-th,td{padding:10px;border-bottom:1px solid #eee}
-.word{font-size:22px}
-.review{text-align:center;padding:30px}
+th,td{padding:10px;border-bottom:1px solid #eee;text-align:left}
+.word{font-size:22px;font-weight:bold}
+.review{text-align:center}
 .small{color:gray;font-size:13px}
+.flex{display:flex;gap:8px;flex-wrap:wrap}
+.badge{background:#eef2ff;padding:4px 10px;border-radius:10px}
+@media(max-width:600px){header{font-size:20px}}
 </style>
 </head>
 <body>
 <header>📘 Vocabulary Hub</header>
 <div class="container"><div class="grid">
-<div class="card"><h3>Total Words</h3><div class="word" id="total"></div></div>
-<div class="card"><h3>Favorites</h3><div class="word" id="fav"></div></div>
-<div class="card"><h3>Review Today</h3><div class="word" id="reviewCount"></div></div>
+<div class="card"><div>Total Words</div><div class="word" id="total"></div></div>
+<div class="card"><div>Favorites</div><div class="word" id="fav"></div></div>
+<div class="card"><div>Review Today</div><div class="word" id="reviewCount"></div></div>
+<div class="card"><div>🔥 Streak</div><div class="word" id="streak"></div></div>
 </div><div class="card">
-<h2>Add Category</h2>
+<h3>➕ Add Category</h3>
+<div class="flex">
 <input id="catInput" placeholder="Category name">
 <button onclick="addCategory()">Add</button>
-<div id="catList"></div>
+</div>
+<div id="catList" class="small"></div>
 </div><div class="card">
-<h2>Add Word</h2>
+<h3>➕ Add Word</h3>
 <input id="word" placeholder="Word">
 <input id="meaning" placeholder="Meaning">
-<textarea id="example" placeholder="Example"></textarea>
+<textarea id="example" placeholder="Example sentence"></textarea>
 <select id="category"></select>
 <button onclick="addWord()">Add Word</button>
 </div><div class="card review" id="reviewBox" style="display:none">
 <h2>Daily Review</h2>
 <div class="word" id="reviewWord"></div>
 <div id="reviewMeaning" style="display:none"></div>
-<button onclick="speak()">🔊 British Pronunciation</button><br><br>
+<button onclick="speak(reviewWord.word)">🔊 British Pronunciation</button><br><br>
 <button onclick="showMeaning()">Show Meaning</button><br><br>
 <button onclick="rate('hard')">😵 Hard</button>
 <button onclick="rate('medium')">🙂 Medium</button>
 <button onclick="rate('easy')">😍 Easy</button>
 </div><div class="card">
-<h2>All Words</h2>
+<h3>🔎 Search</h3>
+<input id="search" oninput="render()" placeholder="Search word...">
+</div><div class="card">
+<h3>🎧 Listening Mode</h3>
+<button onclick="playAll()">Play all words</button>
+</div><div class="card">
+<h3>🗣 Speaking Test</h3>
+<button onclick="speakingTest()">Give me random words</button>
+<div id="speakWords" class="badge"></div>
+</div><div class="card">
+<h3>All Words</h3>
 <table id="table"></table>
+</div><div class="card">
+<h3>💾 Backup</h3>
+<button onclick="exportData()">Export JSON</button>
+<input type="file" onchange="importData(event)">
 </div></div><script>
-let data=JSON.parse(localStorage.getItem('vocabData'))||{categories:[],words:[]}
+let data=JSON.parse(localStorage.getItem('vocabData'))||{categories:[],words:[],streak:0,lastReview:0}
 let reviewWord=null
 
 function save(){localStorage.setItem('vocabData',JSON.stringify(data));render()}
 
-function addCategory(){let name=catInput.value; if(!name)return; data.categories.push(name); catInput.value=''; save()}
+function addCategory(){if(!catInput.value)return;data.categories.push(catInput.value);catInput.value='';save()}
 
 function addWord(){
- let w={
-  id:Date.now(),
-  word:word.value,
-  meaning:meaning.value,
-  example:example.value,
-  category:category.value,
-  level:0,
-  next:Date.now(),
-  fav:false
- }
- data.words.push(w); word.value='';meaning.value='';example.value=''; save()
+ if(!word.value)return
+ data.words.push({id:Date.now(),word:word.value,meaning:meaning.value,example:example.value,category:category.value,level:0,next:Date.now(),fav:false})
+ word.value='';meaning.value='';example.value='';save()
 }
 
-function toggleFav(id){
- let w=data.words.find(x=>x.id==id); w.fav=!w.fav; save()
-}
-
-function delWord(id){data.words=data.words.filter(x=>x.id!=id); save()}
-
-function speak(){let msg=new SpeechSynthesisUtterance(reviewWord.word);msg.lang='en-GB';speechSynthesis.speak(msg)}
-
+function toggleFav(id){let w=data.words.find(x=>x.id==id);w.fav=!w.fav;save()}
+function delWord(id){data.words=data.words.filter(x=>x.id!=id);save()}
+function speak(text){let msg=new SpeechSynthesisUtterance(text);msg.lang='en-GB';speechSynthesis.speak(msg)}
 function showMeaning(){reviewMeaning.style.display='block'}
 
-function rate(diff){
- let w=reviewWord
- if(diff=='easy') w.level+=2
- if(diff=='medium') w.level+=1
- if(diff=='hard') w.level=0
- let days=[1,2,4,7,15,30]
- w.next=Date.now()+days[Math.min(w.level,5)]*86400000
- save()
-}
+function rate(diff){let w=reviewWord;if(diff=='easy')w.level+=2;if(diff=='medium')w.level+=1;if(diff=='hard')w.level=0;let days=[1,2,4,7,15,30];w.next=Date.now()+days[Math.min(w.level,5)]*86400000;updateStreak();save()}
+
+function updateStreak(){let today=new Date().toDateString();if(data.lastReview!=today){data.streak++;data.lastReview=today}}
+
+function playAll(){data.words.forEach((w,i)=>setTimeout(()=>speak(w.word),i*1200))}
+
+function speakingTest(){let arr=[...data.words].sort(()=>0.5-Math.random()).slice(0,3);speakWords.innerText=arr.map(w=>w.word).join(' - ')}
+
+function exportData(){let blob=new Blob([JSON.stringify(data)],{type:'application/json'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='vocab.json';a.click()}
+function importData(e){let file=e.target.files[0];let reader=new FileReader();reader.onload=()=>{data=JSON.parse(reader.result);save()};reader.readAsText(file)}
 
 function render(){
  total.innerText=data.words.length
  fav.innerText=data.words.filter(w=>w.fav).length
-
+ streak.innerText=data.streak
  category.innerHTML=data.categories.map(c=>`<option>${c}</option>`)
- catList.innerHTML=data.categories.join('<br>')
-
+ catList.innerHTML=data.categories.map(c=>`<span class='badge'>${c}</span>`).join(' ')
  let today=data.words.filter(w=>w.next<Date.now())
  reviewCount.innerText=today.length
- if(today.length){
-  reviewWord=today[Math.floor(Math.random()*today.length)]
-  reviewBox.style.display='block'
-  reviewWordEl=document.getElementById('reviewWord')
-  reviewWordEl.innerText=reviewWord.word
-  reviewMeaning.innerHTML=reviewWord.meaning+"<br><span class='small'>"+reviewWord.example
- }
+ if(today.length){reviewWord=today[Math.floor(Math.random()*today.length)];reviewBox.style.display='block';reviewWordEl.innerText=reviewWord.word;reviewMeaning.innerHTML=reviewWord.meaning+"<br><span class='small'>"+reviewWord.example}
 
- table.innerHTML='<tr><th>Word</th><th>Cat</th><th>Fav</th><th>Delete</th></tr>'+
- data.words.map(w=>`<tr>
- <td>${w.word}</td>
- <td>${w.category}</td>
- <td onclick="toggleFav(${w.id})">${w.fav?'⭐':''}</td>
- <td onclick="delWord(${w.id})">🗑</td>
- </tr>`).join('')
+ let s=search.value?.toLowerCase()||''
+ let list=data.words.filter(w=>w.word.toLowerCase().includes(s))
+ table.innerHTML='<tr><th>Word</th><th>Cat</th><th>Fav</th><th>Del</th></tr>'+
+ list.map(w=>`<tr><td>${w.word}</td><td>${w.category}</td><td onclick="toggleFav(${w.id})">${w.fav?'⭐':''}</td><td onclick="delWord(${w.id})">🗑</td></tr>`).join('')
 }
 render()
 </script></body>
