@@ -4,21 +4,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vocabulary Hub 💜</title>
 <style>
-:root{--primary:#7c5cff;--bg:#f6f4ff;--card:#ffffff;--text:#1b1b2f}
+:root{--primary:#8b6cff;--bg:#f6f4ff;--card:#ffffff;--text:#1b1b2f}
 .dark{--bg:#141327;--card:#1e1c3a;--text:#fff}
 *{box-sizing:border-box}
 body{margin:0;font-family:system-ui;background:var(--bg);color:var(--text);transition:.3s}
-header{background:var(--primary);color:#fff;padding:18px;font-size:24px;text-align:center;display:flex;justify-content:space-between;align-items:center}
-.container{max-width:1100px;margin:auto;padding:16px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
-.card{background:var(--card);border-radius:18px;padding:16px;box-shadow:0 10px 25px rgba(0,0,0,.1)}
-input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #ddd;margin-top:6px}
-button{background:var(--primary);color:#fff;border:none;padding:10px 14px;border-radius:12px;cursor:pointer}
-table{width:100%;border-collapse:collapse}
-th,td{padding:10px;border-bottom:1px solid #eee;text-align:left}
-.word{font-size:22px;font-weight:bold}
-.badge{background:#ece7ff;padding:4px 10px;border-radius:10px;margin:2px;display:inline-block}
+header{background:linear-gradient(45deg,#8b6cff,#b79cff);color:#fff;padding:18px;font-size:24px;text-align:center;display:flex;justify-content:space-between;align-items:center}
+.container{max-width:1100px;margin:auto;padding:22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-bottom:20px}
+.card{background:var(--card);border-radius:22px;padding:20px;box-shadow:0 12px 30px rgba(0,0,0,.1);animation:fade .6s ease}
+@keyframes fade{from{opacity:0;transform:translateY(15px)}to{opacity:1}}
+input,select,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid #ddd;margin-top:8px}
+button{background:var(--primary);color:#fff;border:none;padding:12px 16px;border-radius:14px;cursor:pointer;margin-top:10px;transition:.2s}
+button:hover{transform:scale(1.05)}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{padding:12px;border-bottom:1px solid #eee}
+.word{font-size:26px;font-weight:bold}
+.badge{background:#ece7ff;padding:6px 12px;border-radius:12px;margin:4px;display:inline-block}
 .toggle{background:#fff;color:#000}
+h3{margin-top:0;margin-bottom:10px}
 </style>
 </head>
 <body>
@@ -29,23 +32,22 @@ th,td{padding:10px;border-bottom:1px solid #eee;text-align:left}
 <div class="container"><div class="grid">
 <div class="card"><div>Total Words</div><div class="word" id="total"></div></div>
 <div class="card"><div>Favorites</div><div class="word" id="fav"></div></div>
-<div class="card"><div>Review Today</div><div class="word" id="reviewCount"></div></div>
 <div class="card"><div>🔥 Streak</div><div class="word" id="streak"></div></div>
+<div class="card"><div>🎯 Goal</div><div class="word" id="goalText"></div></div>
 </div><div class="card">
 <h3>🎯 Daily Goal</h3>
 <input id="goalInput" type="number" placeholder="Words per day">
 <button onclick="setGoal()">Save Goal</button>
-<div id="goalText"></div>
 </div><div class="card">
 <h3>➕ Add Category</h3>
 <input id="catInput" placeholder="Category">
-<button onclick="addCategory()">Add</button>
+<button onclick="addCategory()">Add Category</button>
 <div id="catList"></div>
 </div><div class="card">
 <h3>➕ Add Word</h3>
 <input id="word" placeholder="Word">
 <input id="meaning" placeholder="Meaning">
-<textarea id="example" placeholder="Example"></textarea>
+<textarea id="example" placeholder="Example sentence"></textarea>
 <select id="category"></select>
 <button onclick="addWord()">Add Word</button>
 </div><div class="card">
@@ -56,13 +58,12 @@ th,td{padding:10px;border-bottom:1px solid #eee;text-align:left}
 <div id="achievements"></div>
 </div><div class="card">
 <h3>🎧 Listening Mode</h3>
-<button onclick="playAll()">Play all words</button>
+<button onclick="playAll()">Play all words 🔊</button>
 </div><div class="card">
 <h3>All Words</h3>
 <table id="table"></table>
 </div></div><script>
-let data=JSON.parse(localStorage.getItem('vocabData'))||{categories:[],words:[],streak:0,lastReview:0,goal:5}
-
+let data=JSON.parse(localStorage.getItem('vocabData'))||{categories:[],words:[],streak:0,goal:5}
 function save(){localStorage.setItem('vocabData',JSON.stringify(data));render()}
 function toggleTheme(){document.body.classList.toggle('dark')}
 function setGoal(){data.goal=goalInput.value;save()}
@@ -76,14 +77,11 @@ function playAll(){data.words.forEach((w,i)=>setTimeout(()=>speak(w.word),i*1200
 function render(){
  total.innerText=data.words.length
  fav.innerText=data.words.filter(w=>w.fav).length
- reviewCount.innerText=data.words.length
- streak.innerText=data.streak
- goalText.innerText='Goal: '+data.goal+' words/day'
+ streak.innerText=data.words.length>0?Math.floor(data.words.length/5):0
+ goalText.innerText=data.goal+' words/day'
  category.innerHTML=data.categories.map(c=>`<option>${c}</option>`)
  catList.innerHTML=data.categories.map(c=>`<span class='badge'>${c}</span>`).join(' ')
-
  achievements.innerHTML=data.words.length>20?'🏆 20 words learned!':''
-
  let s=search.value?.toLowerCase()||''
  let list=data.words.filter(w=>w.word.toLowerCase().includes(s))
  table.innerHTML='<tr><th>Word</th><th>Cat</th><th>Fav</th><th>Del</th></tr>'+
