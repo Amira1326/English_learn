@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VocabMaster Pro 🇬🇧</title>
+    <title>VocabMaster Ultimate 🇬🇧</title>
     <style>
         :root {
             --primary: #6c5ce7;
             --secondary: #a29bfe;
             --success: #00b894;
             --danger: #ff7675;
-            --bg: #f0f2f5;
+            --bg: #f4f7f6;
             --card: #ffffff;
             --text: #2d3436;
             --accent: #fdcb6e;
@@ -23,84 +23,109 @@
         }
 
         * { box-sizing: border-box; transition: 0.3s; }
-        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        body { margin: 0; font-family: 'Inter', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); }
 
-        header { background: var(--card); padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 15px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-        .logo { font-weight: 900; font-size: 1.6rem; color: var(--primary); letter-spacing: -1px; }
+        header { background: var(--card); padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-weight: 800; font-size: 1.5rem; color: var(--primary); }
 
-        .container { max-width: 1000px; margin: auto; padding: 20px; }
+        .container { max-width: 900px; margin: auto; padding: 20px; }
 
-        /* Tabs Navigation */
-        .nav-wrapper { overflow-x: auto; white-space: nowrap; margin-bottom: 25px; padding: 5px; }
-        .tabs { display: flex; gap: 8px; }
-        .tab-btn { padding: 12px 20px; background: var(--card); border-radius: 15px; cursor: pointer; border: 2px solid transparent; font-weight: 600; font-size: 0.9rem; }
-        .tab-btn.active { border-color: var(--primary); color: var(--primary); box-shadow: 0 5px 15px rgba(108, 92, 231, 0.2); }
+        /* Navigation */
+        .nav-scroller { overflow-x: auto; padding: 10px 0; margin-bottom: 20px; scrollbar-width: none; }
+        .nav-scroller::-webkit-scrollbar { display: none; }
+        .tabs { display: flex; gap: 10px; }
+        .tab-btn { padding: 12px 24px; background: var(--card); border-radius: 50px; cursor: pointer; border: 2px solid transparent; font-weight: 600; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .tab-btn.active { border-color: var(--primary); color: var(--primary); background: #eeebff; }
 
         .section { display: none; animation: fadeIn 0.4s ease; }
         .section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-        .card { background: var(--card); padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .card { background: var(--card); padding: 25px; border-radius: 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.04); margin-bottom: 20px; }
         
-        /* Learning Log Form */
-        .log-form { display: grid; grid-template-columns: 1fr 2fr auto; gap: 10px; margin-bottom: 20px; }
-        @media (max-width: 600px) { .log-form { grid-template-columns: 1fr; } }
+        /* Forms */
+        .form-group { margin-bottom: 15px; text-align: left; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9rem; opacity: 0.8; }
+        input, select, textarea { padding: 14px; border-radius: 14px; border: 1px solid #e0e0e0; background: var(--bg); color: var(--text); font-size: 1rem; width: 100%; outline: none; }
+        input:focus { border-color: var(--primary); }
 
-        input, select, textarea { padding: 12px; border-radius: 12px; border: 1px solid #ddd; background: var(--bg); color: var(--text); font-size: 1rem; width: 100%; }
-        .btn { border: none; padding: 12px 25px; border-radius: 12px; font-weight: bold; cursor: pointer; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
-        .btn-delete { background: var(--danger); padding: 5px 10px; font-size: 0.8rem; }
+        .btn { border: none; padding: 14px 28px; border-radius: 14px; font-weight: bold; cursor: pointer; background: var(--primary); color: white; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-sm { padding: 8px 16px; font-size: 0.85rem; border-radius: 10px; }
+        .btn-outline { background: transparent; border: 2px solid #eee; color: var(--text); }
 
-        /* Flashcards & Quiz */
-        .flip-container { width: 100%; max-width: 350px; height: 220px; margin: 25px auto; perspective: 1000px; }
+        /* Flashcards */
+        .flip-container { width: 100%; max-width: 400px; height: 250px; margin: 20px auto; perspective: 1000px; }
         .flipper { position: relative; width: 100%; height: 100%; transition: 0.6s; transform-style: preserve-3d; }
         .flipper.flipped { transform: rotateY(180deg); }
-        .front, .back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 25px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 25px; font-size: 1.8rem; font-weight: bold; color: white; text-align: center; }
-        .front { background: linear-gradient(135deg, var(--primary), var(--secondary)); }
-        .back { background: var(--success); transform: rotateY(180deg); }
+        .front, .back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 30px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; font-size: 2rem; font-weight: bold; color: white; text-align: center; box-shadow: 0 15px 35px rgba(108, 92, 231, 0.2); }
+        .front { background: linear-gradient(135deg, #6c5ce7, #a29bfe); }
+        .back { background: #00b894; transform: rotateY(180deg); }
+        .cat-tag { font-size: 0.8rem; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; margin-bottom: 15px; text-transform: uppercase; }
 
-        /* Table Design */
-        .scroll-x { overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th { text-align: left; padding: 15px; background: rgba(0,0,0,0.02); font-size: 0.8rem; text-transform: uppercase; color: #888; }
-        td { padding: 15px; border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .date-badge { font-size: 0.8rem; color: var(--primary); font-weight: bold; }
+        /* Tables */
+        .table-container { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th { text-align: left; padding: 15px; border-bottom: 2px solid #f0f0f0; color: #888; font-size: 0.8rem; }
+        td { padding: 15px; border-bottom: 1px solid #f9f9f9; }
+        .badge { background: #eee; padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: bold; color: var(--primary); }
+
+        .empty-state { padding: 40px; text-align: center; opacity: 0.5; }
     </style>
 </head>
 <body>
 
 <header>
     <div class="logo">VocabMaster 🇬🇧</div>
-    <div style="display:flex; gap:12px">
-        <button onclick="exportData()" class="btn" style="padding:8px">💾</button>
-        <button onclick="document.body.classList.toggle('dark')" class="btn" style="padding:8px; background:var(--secondary)">🌓</button>
+    <div style="display:flex; gap:10px">
+        <button onclick="exportData()" class="btn btn-sm btn-outline">💾 Export</button>
+        <button onclick="document.body.classList.toggle('dark')" class="btn btn-sm btn-outline">🌓</button>
     </div>
 </header>
 
 <div class="container">
-    <div class="nav-wrapper">
+    <div class="nav-scroller">
         <div class="tabs">
-            <div class="tab-btn active" onclick="showTab(event, 'learn')">📖 Vocabulary</div>
+            <div class="tab-btn active" onclick="showTab(event, 'learn')">📖 Learning</div>
+            <div class="tab-btn" onclick="showTab(event, 'dictionary')">📚 Dictionary</div>
             <div class="tab-btn" onclick="showTab(event, 'easy')">😊 Easy English</div>
             <div class="tab-btn" onclick="showTab(event, 'tv')">📺 TV Series</div>
-            <div class="tab-btn" onclick="showTab(event, 'lucy')">👩 Lucy English</div>
-            <div class="tab-btn" onclick="showTab(event, 'manage')">➕ Add Word</div>
+            <div class="tab-btn" onclick="showTab(event, 'lucy')">👩 Lucy</div>
+            <div class="tab-btn" onclick="showTab(event, 'manage')">⚙️ Manage</div>
         </div>
     </div>
 
     <div id="learn" class="section active">
         <div class="card" style="text-align: center;">
-            <h3>Flashcards</h3>
-            <div class="flip-container" onclick="document.getElementById('flipper').classList.toggle('flipped')">
+            <div class="flip-container" onclick="this.querySelector('.flipper').classList.toggle('flipped')">
                 <div class="flipper" id="flipper">
-                    <div class="front" id="flash-front">Empty</div>
-                    <div class="back" id="flash-back">Add words to start</div>
+                    <div class="front">
+                        <span class="cat-tag" id="flash-cat">Category</span>
+                        <div id="flash-front">No Words Added</div>
+                    </div>
+                    <div class="back" id="flash-back">Add words in Manage tab</div>
                 </div>
             </div>
-            <div style="display:flex; gap:10px; justify-content:center">
-                <button class="btn" style="background:#eee; color:#333" onclick="prevCard()">⬅️</button>
-                <button class="btn" onclick="speakFlash()">🔊 Listen</button>
-                <button class="btn" onclick="nextCard()">➡️</button>
+            <div style="display:flex; gap:15px; justify-content:center">
+                <button class="btn btn-outline" onclick="prevCard()">⬅️</button>
+                <button class="btn" onclick="speakFlash()">🔊 Pronounce</button>
+                <button class="btn btn-outline" onclick="nextCard()">➡️</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="dictionary" class="section">
+        <div class="card">
+            <div style="display:flex; gap:10px; margin-bottom:20px">
+                <input type="text" id="searchBox" placeholder="Search words..." oninput="renderDictionary()">
+                <select id="filterCat" onchange="renderDictionary()" style="max-width: 150px;">
+                    <option value="All">All Categories</option>
+                </select>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead><tr><th>Word</th><th>Meaning</th><th>Category</th><th>Action</th></tr></thead>
+                    <tbody id="dict-table"></tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -108,185 +133,242 @@
     <div id="easy" class="section">
         <div class="card">
             <h3>😊 Easy English Journal</h3>
-            <div class="log-form">
+            <div style="display:grid; gap:10px; grid-template-columns: 1fr 2fr auto; margin-bottom:20px">
                 <input type="date" id="date-easy">
-                <input type="text" id="note-easy" placeholder="What did you learn from Easy English?">
-                <button class="btn" onclick="addLog('easy')">Add Log</button>
+                <input type="text" id="note-easy" placeholder="What did you learn?">
+                <button class="btn" onclick="addLog('easy')">Add</button>
             </div>
-            <div class="scroll-x">
-                <table>
-                    <thead><tr><th>Date</th><th>Lesson Details</th><th>Action</th></tr></thead>
-                    <tbody id="log-easy"></tbody>
-                </table>
-            </div>
+            <div id="log-easy" class="log-list"></div>
         </div>
     </div>
 
     <div id="tv" class="section">
         <div class="card">
             <h3>📺 TV Series Journal</h3>
-            <div class="log-form">
+            <div style="display:grid; gap:10px; grid-template-columns: 1fr 2fr auto; margin-bottom:20px">
                 <input type="date" id="date-tv">
-                <input type="text" id="note-tv" placeholder="Which series? New phrases?">
-                <button class="btn" onclick="addLog('tv')">Add Log</button>
+                <input type="text" id="note-tv" placeholder="New phrases from movies?">
+                <button class="btn" onclick="addLog('tv')">Add</button>
             </div>
-            <div class="scroll-x">
-                <table>
-                    <thead><tr><th>Date</th><th>Lesson Details</th><th>Action</th></tr></thead>
-                    <tbody id="log-tv"></tbody>
-                </table>
-            </div>
+            <div id="log-tv" class="log-list"></div>
         </div>
     </div>
 
     <div id="lucy" class="section">
         <div class="card">
-            <h3>👩 English with Lucy Journal</h3>
-            <div class="log-form">
+            <h3>👩 English with Lucy</h3>
+            <div style="display:grid; gap:10px; grid-template-columns: 1fr 2fr auto; margin-bottom:20px">
                 <input type="date" id="date-lucy">
-                <input type="text" id="note-lucy" placeholder="British pronunciation / Idioms...">
-                <button class="btn" onclick="addLog('lucy')">Add Log</button>
+                <input type="text" id="note-lucy" placeholder="Lucy's tips today...">
+                <button class="btn" onclick="addLog('lucy')">Add</button>
             </div>
-            <div class="scroll-x">
-                <table>
-                    <thead><tr><th>Date</th><th>Lesson Details</th><th>Action</th></tr></thead>
-                    <tbody id="log-lucy"></tbody>
-                </table>
-            </div>
+            <div id="log-lucy" class="log-list"></div>
         </div>
     </div>
 
     <div id="manage" class="section">
         <div class="card">
-            <h3>➕ Add New Vocabulary</h3>
+            <h3>📂 Step 1: Manage Categories</h3>
+            <p style="font-size: 0.85rem; opacity:0.7">Add categories like: Airport, Clothes, Work...</p>
+            <div style="display:flex; gap:10px">
+                <input type="text" id="newCatName" placeholder="Category Name (e.g., Airport)">
+                <button class="btn" onclick="addNewCategory()">Create</button>
+            </div>
+            <div id="cat-badges" style="margin-top:15px; display:flex; flex-wrap:wrap; gap:8px"></div>
+        </div>
+
+        <div class="card">
+            <h3>➕ Step 2: Add Word</h3>
             <div style="display:grid; gap:15px">
-                <input id="wIn" placeholder="English Word">
-                <input id="mIn" placeholder="Meaning">
-                <select id="cIn"></select>
-                <button class="btn" onclick="saveWord()">Save Word</button>
+                <div class="form-group">
+                    <label>Word in English</label>
+                    <input id="wIn" placeholder="e.g. Passport">
+                </div>
+                <div class="form-group">
+                    <label>Meaning / Translation</label>
+                    <input id="mIn" placeholder="e.g. جواز سفر">
+                </div>
+                <div class="form-group">
+                    <label>Choose Category</label>
+                    <select id="cInSelect"></select>
+                </div>
+                <button class="btn" onclick="saveWord()">Save to My Dictionary</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-// Combined Data Object
-let appData = JSON.parse(localStorage.getItem('vocabProData')) || {
+// --- Data Structure ---
+let appData = JSON.parse(localStorage.getItem('vocabMasterUltra')) || {
     words: [],
-    categories: ['General', 'Travel', 'Slang'],
-    logs: {
-        easy: [],
-        tv: [],
-        lucy: []
-    }
+    categories: ['General', 'Airport', 'Clothes', 'Restaurant'],
+    logs: { easy: [], tv: [], lucy: [] }
 };
 
 let curIdx = 0;
 
-function save() {
-    localStorage.setItem('vocabProData', JSON.stringify(appData));
-    render();
-}
-
+// --- Tab System ---
 function showTab(event, tabId) {
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.getElementById(tabId).classList.add('active');
     event.currentTarget.classList.add('active');
+    if(tabId === 'dictionary') renderDictionary();
 }
 
-// --- Vocabulary Logic ---
+// --- Category Management ---
+function addNewCategory() {
+    const name = document.getElementById('newCatName').value.trim();
+    if(name && !appData.categories.includes(name)) {
+        appData.categories.push(name);
+        document.getElementById('newCatName').value = '';
+        saveAndRefresh();
+    }
+}
+
+function deleteCategory(cat) {
+    if(appData.words.some(w => w.c === cat)) {
+        return alert("Cannot delete category while it has words!");
+    }
+    appData.categories = appData.categories.filter(c => c !== cat);
+    saveAndRefresh();
+}
+
+// --- Word Management ---
 function saveWord() {
     const w = document.getElementById('wIn').value.trim();
     const m = document.getElementById('mIn').value.trim();
-    const c = document.getElementById('cIn').value;
-    if(!w || !m) return alert("Fill all fields");
+    const c = document.getElementById('cInSelect').value;
+    if(!w || !m) return alert("Please fill Word and Meaning");
+    
     appData.words.unshift({ id: Date.now(), w, m, c });
-    document.getElementById('wIn').value = ''; 
+    document.getElementById('wIn').value = '';
     document.getElementById('mIn').value = '';
-    save();
+    saveAndRefresh();
+    alert("Word saved successfully!");
 }
 
-// --- Learning Logs Logic ---
+function deleteWord(id) {
+    if(confirm("Delete this word?")) {
+        appData.words = appData.words.filter(w => w.id !== id);
+        saveAndRefresh();
+    }
+}
+
+// --- Log Management ---
 function addLog(type) {
     const date = document.getElementById(`date-${type}`).value;
     const note = document.getElementById(`note-${type}`).value.trim();
-    if(!date || !note) return alert("Please enter date and lesson info");
+    if(!date || !note) return alert("Fill both date and note");
     
     appData.logs[type].unshift({ id: Date.now(), date, note });
     document.getElementById(`note-${type}`).value = '';
-    save();
+    saveAndRefresh();
+}
+
+// --- Core Functions ---
+function saveAndRefresh() {
+    localStorage.setItem('vocabMasterUltra', JSON.stringify(appData));
+    renderAll();
+}
+
+function renderAll() {
+    // Render Category Selectors
+    const catOptions = appData.categories.map(c => `<option value="${c}">${c}</option>`).join('');
+    document.getElementById('cInSelect').innerHTML = catOptions;
+    document.getElementById('filterCat').innerHTML = '<option value="All">All Categories</option>' + catOptions;
+
+    // Render Category Badges (Manage Tab)
+    document.getElementById('cat-badges').innerHTML = appData.categories.map(c => `
+        <span class="badge" style="padding:8px 15px; display:flex; align-items:center; gap:5px">
+            ${c} <span onclick="deleteCategory('${c}')" style="cursor:pointer; color:red">×</span>
+        </span>
+    `).join('');
+
+    // Render Logs
+    ['easy', 'tv', 'lucy'].forEach(type => {
+        const container = document.getElementById(`log-${type}`);
+        container.innerHTML = appData.logs[type].length ? appData.logs[type].map(l => `
+            <div style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #eee">
+                <span><strong>${l.date}</strong>: ${l.note}</span>
+                <span onclick="deleteLog('${type}', ${l.id})" style="cursor:pointer; color:red">🗑️</span>
+            </div>
+        `).join('') : '<div class="empty-state">No logs yet</div>';
+    });
+
+    renderDictionary();
+    updateFlashcard();
 }
 
 function deleteLog(type, id) {
     appData.logs[type] = appData.logs[type].filter(l => l.id !== id);
-    save();
+    saveAndRefresh();
 }
 
-// --- Flashcards ---
+function renderDictionary() {
+    const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+    const catFilter = document.getElementById('filterCat').value;
+    const tableBody = document.getElementById('dict-table');
+
+    let filtered = appData.words.filter(w => {
+        const matchesSearch = w.w.toLowerCase().includes(searchTerm) || w.m.toLowerCase().includes(searchTerm);
+        const matchesCat = catFilter === 'All' || w.c === catFilter;
+        return matchesSearch && matchesCat;
+    });
+
+    tableBody.innerHTML = filtered.length ? filtered.map(w => `
+        <tr>
+            <td style="font-weight:bold; color:var(--primary)">${w.w}</td>
+            <td>${w.m}</td>
+            <td><span class="badge">${w.c}</span></td>
+            <td><button class="btn btn-sm btn-outline" style="color:red" onclick="deleteWord(${w.id})">🗑️</button></td>
+        </tr>
+    `).join('') : '<tr><td colspan="4" class="empty-state">No words found</td></tr>';
+}
+
+// --- Flashcard Logic ---
 function updateFlashcard() {
     if(appData.words.length === 0) return;
+    const word = appData.words[curIdx];
+    document.getElementById('flash-cat').innerText = word.c;
+    document.getElementById('flash-front').innerText = word.w;
+    document.getElementById('flash-back').innerText = word.m;
     document.getElementById('flipper').classList.remove('flipped');
-    document.getElementById('flash-front').innerText = appData.words[curIdx].w;
-    document.getElementById('flash-back').innerText = appData.words[curIdx].m;
 }
 
 function nextCard() {
-    if(appData.words.length === 0) return;
+    if(!appData.words.length) return;
     curIdx = (curIdx + 1) % appData.words.length;
     updateFlashcard();
 }
 
 function prevCard() {
-    if(appData.words.length === 0) return;
+    if(!appData.words.length) return;
     curIdx = (curIdx - 1 + appData.words.length) % appData.words.length;
     updateFlashcard();
 }
 
 function speakFlash() {
-    const txt = appData.words[curIdx]?.w;
-    if(!txt) return;
-    const msg = new SpeechSynthesisUtterance(txt);
-    msg.lang = 'en-GB';
-    window.speechSynthesis.speak(msg);
-}
-
-// --- Render Tables ---
-function render() {
-    // Categories Dropdown
-    const cIn = document.getElementById('cIn');
-    cIn.innerHTML = appData.categories.map(c => `<option value="${c}">${c}</option>`).join('');
-
-    // Logs for each section
-    ['easy', 'tv', 'lucy'].forEach(type => {
-        const tbody = document.getElementById(`log-${type}`);
-        tbody.innerHTML = appData.logs[type].map(log => `
-            <tr>
-                <td class="date-badge">${log.date}</td>
-                <td>${log.note}</td>
-                <td><button class="btn btn-delete" onclick="deleteLog('${type}', ${log.id})">🗑️</button></td>
-            </tr>
-        `).join('');
-    });
-
-    updateFlashcard();
+    const word = appData.words[curIdx]?.w;
+    if(word) {
+        const msg = new SpeechSynthesisUtterance(word);
+        msg.lang = 'en-GB';
+        window.speechSynthesis.speak(msg);
+    }
 }
 
 function exportData() {
     const blob = new Blob([JSON.stringify(appData)], {type:'application/json'});
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = `my_learning_progress_${new Date().toLocaleDateString()}.json`;
+    a.download = 'VocabMaster_Backup.json';
     a.click();
 }
 
-// Initialize
-render();
-// Set default date to today for all date inputs
-document.querySelectorAll('input[type="date"]').forEach(input => {
-    input.value = new Date().toISOString().split('T')[0];
-});
+// Initial Run
+document.querySelectorAll('input[type="date"]').forEach(i => i.value = new Date().toISOString().split('T')[0]);
+renderAll();
 </script>
-
 </body>
 </html>
